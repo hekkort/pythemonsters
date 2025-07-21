@@ -15,19 +15,27 @@ def print_me_health(remaining_health, damage):
     else:
         return "You have died!"
 
-def print_battle_interface(damage_to_enemy, remaining_enemy, damage_to_me, remaining_me):
-    print(f"""
-====================
-        {print_enemy_health(remaining_enemy, damage_to_enemy)}      
-
-
-                                        {print_me_health(remaining_me, damage_to_me)}
-                                ====================
-----------------------------------------------------
-|                                                  |
-|                                                  |
-|                                                  |
-----------------------------------------------------
-""")
+def draw_field(moves):
+    str = ""
+    dashes = ""
+    spaces = ""
+    for i in range(24):
+        dashes += "-"
+        spaces += " "
+    for i in range(len(moves)):
+        padding = ""
+        for j in range(len(spaces) - len(moves[i])):
+            padding += " "
+        moves[i] += padding
+    for r in range(1):
+        str += f"+{dashes}-{dashes}+\n"
+        for r in range(12):
+            str += f"|{spaces} {spaces}|\n"
+    str += f"+{dashes}" * 2 + "+\n"
+    str += f"|{moves[0]}|{moves[1]}|\n"
+    str += f"+{dashes}" * 2 + "+\n"
+    str += f"|{moves[2]}|{moves[3]}|\n"
+    str += f"+{dashes}" * 2 + "+\n"
+    return str
     
-    
+   
