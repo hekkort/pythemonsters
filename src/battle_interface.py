@@ -36,7 +36,7 @@ def draw_field(field_width, moves, enemy_name, your_name):
         final_string += f"+{dashes}-{dashes}+\n"
         final_string += f"|{enemy_name}{enemy_name_padding} {spaces}|\n"
         final_string += f"|{insert_enemy_health()}{enemy_health_padding} {spaces}|\n"
-        for r in range(4):
+        for r in range(16):
             final_string += f"|{spaces} {spaces}|\n"
         final_string += f"|{spaces} {your_name}{your_name_padding}|\n"
         final_string += f"|{spaces} {insert_your_health()}{your_health_padding}|\n"
