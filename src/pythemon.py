@@ -17,6 +17,6 @@ class Pythemon():
             case "squirtle":
                 self.type = [Type.WATER]
                 self.moves = {"Water Gun": {40: 1}, "Rapid Spin": {50, 1}, "Bite": {60: 1}, "Whirlpool": {35: 0.85}}
-        self.ascii_lines_back = make_ascii_of_monster(monsters + "/" + self.name + "_back.txt")
-        self.ascii_lines_front = make_ascii_of_monster(monsters + "/" + self.name + "_front.txt")
+        self.ascii_lines_back = make_ascii_of_monster_back(monsters + "/" + self.name + "_back.txt")
+        self.ascii_lines_front = make_ascii_of_monster_front(monsters + "/" + self.name + "_front.txt")
         self.initial_health = 100

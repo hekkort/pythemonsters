@@ -10,7 +10,7 @@ class Field():
         enemy_name_padding = ""
         for i in range(self.field_width // 2 - len(self.enemy.name)):
             enemy_name_padding += " "
-        return self.enemy.name + enemy_name_padding
+        return enemy_name_padding + self.enemy.name
     
     def add_you_name_padding(self):
         you_name_padding = ""
@@ -22,7 +22,7 @@ class Field():
         enemy_health_padding = ""
         for i in range(self.field_width // 2 - len(str(self.enemy.initial_health))):
             enemy_health_padding += " "
-        return str(self.enemy.initial_health) + enemy_health_padding
+        return enemy_health_padding + str(self.enemy.initial_health)
     
     def add_you_health_padding(self):
         you_health_padding = ""
@@ -41,7 +41,29 @@ class Field():
     def format_ascii_left(self, spaces, index):
         return self.you.ascii_lines_back[index] + spaces[:-len(self.you.ascii_lines_back[index])]
 
-
+    def add_top(self, spaces, dashes):
+        string = ""
+        string += f"+{dashes}-{dashes}+\n"
+        string += f"|{self.add_enemy_name_padding()} {self.format_ascii_right(spaces, 0)}|\n"
+        string += f"|{self.add_enemy_health_padding()} {self.format_ascii_right(spaces, 1)}|\n"
+        string += f"|{spaces} {self.format_ascii_right(spaces, 2)}|\n"
+        return string
+    
+    def add_bottom(self, spaces):
+        string = ""
+        string += f"|{self.format_ascii_left(spaces, -3)} {spaces}|\n"
+        string += f"|{self.format_ascii_left(spaces, -2)} {self.add_you_name_padding()}|\n"
+        string += f"|{self.format_ascii_left(spaces, -1)} {self.add_you_health_padding()}|\n"
+        return string
+    
+    def add_moves(self, moves_list, dashes):
+        string = ""
+        string += f"+{dashes}" * 2 + "+\n"
+        string += f"|{moves_list[0]}|{moves_list[1]}|\n"
+        string += f"+{dashes}" * 2 + "+\n"
+        string += f"|{moves_list[2]}|{moves_list[3]}|\n"
+        string += f"+{dashes}" * 2 + "+\n"
+        return string
 
     def draw_field(self):
         final_string = ""
@@ -57,21 +79,11 @@ class Field():
             for j in range(len(spaces) - len(moves_list[i])):
                 padding += " "
             moves_list[i] += padding
-        for r in range(1):
-            final_string += f"+{dashes}-{dashes}+\n"
-            final_string += f"|{self.add_enemy_name_padding()} {self.format_ascii_right(spaces, 0)}|\n"
-            final_string += f"|{self.add_enemy_health_padding()} {self.format_ascii_right(spaces, 1)}|\n"
-            final_string += f"|{spaces} {self.format_ascii_right(spaces, 2)}|\n"
-            for r in range(3, len(self.enemy.ascii_lines_front)):
-                final_string += f"|{self.format_ascii_left(spaces, r - 3)} {self.format_ascii_right(spaces, r)}|\n"
-            final_string += f"|{self.format_ascii_left(spaces, -3)} {spaces}|\n"
-            final_string += f"|{self.format_ascii_left(spaces, -2)} {self.add_you_name_padding()}|\n"
-            final_string += f"|{self.format_ascii_left(spaces, -1)} {self.add_you_health_padding()}|\n"
-        final_string += f"+{dashes}" * 2 + "+\n"
-        final_string += f"|{moves_list[0]}|{moves_list[1]}|\n"
-        final_string += f"+{dashes}" * 2 + "+\n"
-        final_string += f"|{moves_list[2]}|{moves_list[3]}|\n"
-        final_string += f"+{dashes}" * 2 + "+\n"
+        final_string += self.add_top(spaces, dashes)
+        for r in range(3, len(self.enemy.ascii_lines_front)):
+            final_string += f"|{self.format_ascii_left(spaces, r - 3)} {self.format_ascii_right(spaces, r)}|\n"
+        final_string += self.add_bottom(spaces)
+        final_string += self.add_moves(moves_list, dashes)
         return final_string
     
    
