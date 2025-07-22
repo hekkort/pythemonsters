@@ -15,12 +15,15 @@ class Pythemon():
             case "Bulbasaur":
                 self.type = [Type.GRASS, Type.POISON]
                 self.moves = {"Vine Whip": {45: 1}, "Razor Leaf": {55: 0.95}, "Tackle": {40: 1}, "Poison Sting": {15: 1}}
+                self.dex_entry = 1
             case "Charmander":
                 self.type = [Type.FIRE]
                 self.moves = {"Ember": {40: 1}, "Tackle": {40: 1}, "Scratch": {40: 1}, "Fire Spin": {35: 0.85}}
+                self.dex_entry = 4
             case "Squirtle":
                 self.type = [Type.WATER]
                 self.moves = {"Water Gun": {40: 1}, "Rapid Spin": {50, 1}, "Bite": {60: 1}, "Whirlpool": {35: 0.85}}
+                self.dex_entry = 7
         self._create_ascii_text_back(monsters)
         self._create_ascii_text_front(monsters)
         self.ascii_lines_back = make_ascii_of_monster_back(monsters + "text/back/" + self.name.lower() + "_back.txt")
@@ -58,7 +61,7 @@ class Pythemon():
         if os.path.isfile(filepath + text + "back/" + self.name.lower() + back):
             os.remove(filepath + text + "back/" + self.name.lower() + back)
         with open(filepath + text + "back/" + self.name.lower() + back, "w", encoding="utf-8") as file:
-            file.write(self._get_ascii_string(filepath + png + "back/1.png"))
+            file.write(self._get_ascii_string(filepath + png + f"back/{self.dex_entry}.png"))
 
     def _create_ascii_text_front(self, filepath):
         back = "_front.txt"
@@ -67,7 +70,7 @@ class Pythemon():
         if os.path.isfile(filepath + text + self.name.lower() + back):
             os.remove(filepath + text + self.name.lower() + back)
         with open(filepath + text + self.name.lower() + back, "w", encoding="utf-8") as file:
-            file.write(self._get_ascii_string(filepath + png + "1.png"))
+            file.write(self._get_ascii_string(filepath + png + f"{self.dex_entry}.png"))
 
 
 

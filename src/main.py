@@ -6,17 +6,17 @@ def main():
 
     monsters = "/home/hekkort/workspace/github.com/hekkort/pythemonsters/monsters/"
 
-    f_bulbasaur = pythemon.Pythemon("bulbasaur")
-    e_bulbasaur = pythemon.Pythemon("bulbasaur")
+    e_squirtle = pythemon.Pythemon("squirtle")
+    f_squirtle = pythemon.Pythemon("squirtle")
 
 
-    while f_bulbasaur.health > 0 and e_bulbasaur.health > 0:
+    while e_squirtle.health > 0 and f_squirtle.health > 0:
 
-        field = Field(f_bulbasaur, e_bulbasaur)
+        field = Field(f_squirtle, e_squirtle)
         print(field.draw_field())
         action = input("What kind of attack do you want to use? Type just the number: ")
         
-        e_bulbasaur.health -= f_bulbasaur.use_move(action)
+        e_squirtle.health -= f_squirtle.use_move(action)
 
 
 
