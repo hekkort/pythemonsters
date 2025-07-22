@@ -20,15 +20,15 @@ class Field():
     
     def add_enemy_health_padding(self):
         enemy_health_padding = ""
-        for i in range(self.field_width // 2 - len(str(self.enemy.initial_health))):
+        for i in range(self.field_width // 2 - len(str(self.enemy.health))):
             enemy_health_padding += " "
-        return enemy_health_padding + str(self.enemy.initial_health)
+        return enemy_health_padding + str(self.enemy.health)
     
     def add_you_health_padding(self):
         you_health_padding = ""
-        for i in range(self.field_width // 2 - len(str(self.you.initial_health))):
+        for i in range(self.field_width // 2 - len(str(self.you.health))):
             you_health_padding += " "
-        return str(self.you.initial_health) + you_health_padding
+        return str(self.you.health) + you_health_padding
     
     def format_moves_list(self, moves):
         for i in range(len(moves)):
