@@ -5,7 +5,8 @@ root = "/home/hekkort/workspace/github.com/hekkort/pythemonsters/monsters"
 def make_ascii_of_monster(filename):
     with open(filename, "r") as file:
         lines = file.readlines()
-    return [line.rstrip("\n") for line in lines]
+    lines = [line.rstrip("\n") for line in lines if line.strip() != ""]
+    return lines
 
 class Pythemon():
     def __init__(self, name):

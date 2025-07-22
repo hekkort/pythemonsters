@@ -1,8 +1,10 @@
 from pythemon import *
 
+
+
 class Field():
-    def __init__(self, field_width, you, enemy):
-        self.field_width = field_width
+    def __init__(self, you, enemy):
+        self.field_width = 160
         self.you = you
         self.enemy = enemy
 
