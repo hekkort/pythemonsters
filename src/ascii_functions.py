@@ -1,5 +1,6 @@
 def make_ascii_of_monster_back(filename):
     return remove_right_white_space_of_back(filename)
+
 def make_ascii_of_monster_front(filename):
     return remove_right_white_space_of_front(filename)
 
