@@ -1,10 +1,14 @@
 from field import *
 import pythemon
 
+
 def main():
+
+    monsters = "/home/hekkort/workspace/github.com/hekkort/pythemonsters/monsters/"
 
     f_bulbasaur = pythemon.Pythemon("bulbasaur")
     e_bulbasaur = pythemon.Pythemon("bulbasaur")
+
 
     while f_bulbasaur.health > 0 and e_bulbasaur.health > 0:
 
