@@ -7,9 +7,9 @@ def main():
     bulbasaur = pythemon.Pythemon("bulbasaur")
 
     for b in bulbasaur.ascii_lines_back:
-        print(b)
+        print(f"'{b}'")
     for b in bulbasaur.ascii_lines_front:
-        print(b)
+        print(f"'{b}'")
 
     print(len(bulbasaur.ascii_lines_back))
     print(len(bulbasaur.ascii_lines_back[0]))

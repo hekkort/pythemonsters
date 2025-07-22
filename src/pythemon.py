@@ -1,12 +1,7 @@
 from type import Type
+from ascii_functions import *
 
-root = "/home/hekkort/workspace/github.com/hekkort/pythemonsters/monsters"
-
-def make_ascii_of_monster(filename):
-    with open(filename, "r") as file:
-        lines = file.readlines()
-    lines = [line.rstrip("\n") for line in lines if line.strip() != ""]
-    return lines
+monsters = "/home/hekkort/workspace/github.com/hekkort/pythemonsters/monsters"
 
 class Pythemon():
     def __init__(self, name):
@@ -22,6 +17,6 @@ class Pythemon():
             case "squirtle":
                 self.type = [Type.WATER]
                 self.moves = {"Water Gun": {40: 1}, "Rapid Spin": {50, 1}, "Bite": {60: 1}, "Whirlpool": {35: 0.85}}
-        self.ascii_lines_back = make_ascii_of_monster(root + "/" + self.name + "_back.txt")
-        self.ascii_lines_front = make_ascii_of_monster(root + "/" + self.name + "_front.txt")
+        self.ascii_lines_back = make_ascii_of_monster(monsters + "/" + self.name + "_back.txt")
+        self.ascii_lines_front = make_ascii_of_monster(monsters + "/" + self.name + "_front.txt")
         self.initial_health = 100
