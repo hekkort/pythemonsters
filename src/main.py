@@ -11,11 +11,8 @@ def main():
         field = Field(f_bulbasaur, e_bulbasaur)
         print(field.draw_field())
         action = input("What kind of attack do you want to use? Type just the number: ")
-        move = list(f_bulbasaur.moves.keys())[int(action) - 1]
-        power_accuracy = f_bulbasaur.moves[move]
-        power = list(power_accuracy.keys())[0]
         
-        e_bulbasaur.health -= power
+        e_bulbasaur.health -= f_bulbasaur.use_move(action)
 
 
 
