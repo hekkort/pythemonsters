@@ -1,12 +1,21 @@
-from battle_interface import *
+from field import *
 import pythemon
 
 def main():
-    root = "/home/hekkort/workspace/github.com/hekkort/pythemon/monsters"
-    bulbasaur_back = root + "/bulbasaur_back.txt"
-    bulbasaur_front = root + "/bulbasaur_front.txt"
 
+
+    bulbasaur = pythemon.Pythemon("bulbasaur")
+
+    # for b in bulbasaur.ascii_lines_back:
+    #     print(b)
+    # for b in bulbasaur.ascii_lines_front:
+    #     print(b)
+
+    field = Field(96, bulbasaur, bulbasaur)
+    print(bulbasaur.name)
+    print(field.add_enemy_name_padding())
     
+
 
 
 if __name__ == "__main__":

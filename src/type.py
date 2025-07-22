@@ -1,0 +1,18 @@
+from enum import Enum
+
+class Type(Enum):
+    GRASS = "grass"
+    FIRE = "fire"
+    WATER = "water"
+    ELECTRIC = "electric"
+    PSYCHIC = "psychic"
+    ICE = "ice"
+    DRAGON = "dragon"
+    NORMAL = "normal"
+    FIGHTING = "fighting"
+    FLYING = "flying"
+    POISON = "poison"
+    GROUND = "ground"
+    ROCK = "rock"
+    BUG = "bug"
+    GHOST = "ghost"
