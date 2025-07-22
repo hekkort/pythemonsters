@@ -6,18 +6,19 @@ def main():
 
     bulbasaur = pythemon.Pythemon("bulbasaur")
 
-    for b in bulbasaur.ascii_lines_back:
-        print(f"'{b}'")
-    for b in bulbasaur.ascii_lines_front:
-        print(f"'{b}'")
+    # for b in bulbasaur.ascii_lines_back:
+    #     print(f"'{b}'")
+    # for b in bulbasaur.ascii_lines_front:
+    #     print(f"'{b}'")
 
-    print(len(bulbasaur.ascii_lines_back))
-    print(len(bulbasaur.ascii_lines_back[0]))
-    print(len(bulbasaur.ascii_lines_front))
-    print(len(bulbasaur.ascii_lines_front[0]))
+    # print(len(bulbasaur.ascii_lines_back))
+    # print(len(bulbasaur.ascii_lines_back[0]))
+    # print(len(bulbasaur.ascii_lines_front))
+    # print(len(bulbasaur.ascii_lines_front[0]))
 
     field = Field(bulbasaur, bulbasaur)
-    
+
+    print(field.draw_field())
 
 
 
