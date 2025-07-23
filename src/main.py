@@ -6,17 +6,23 @@ def main():
 
     monsters = "/home/hekkort/workspace/github.com/hekkort/pythemonsters/monsters/"
 
-    e_squirtle = pythemon.Pythemon("squirtle")
-    f_squirtle = pythemon.Pythemon("squirtle")
+    bulbasaur = pythemon.Pythemon(1)
+    charmander = pythemon.Pythemon(4)
+    squirtle = pythemon.Pythemon(7)
+    mewtwo = pythemon.Pythemon(150)
+    raticate = pythemon.Pythemon(20)
+
+    field = Field(raticate, raticate)
+    print(field.draw_field())
 
 
-    while e_squirtle.health > 0 and f_squirtle.health > 0:
+    # while charmander.health > 0 and squirtle.health > 0:
 
-        field = Field(f_squirtle, e_squirtle)
-        print(field.draw_field())
-        action = input("What kind of attack do you want to use? Type just the number: ")
+    #     field = Field(squirtle, charmander)
+    #     print(field.draw_field())
+    #     action = input("What kind of attack do you want to use? Type just the number: ")
         
-        e_squirtle.health -= f_squirtle.use_move(action)
+    #     charmander.health -= squirtle.use_move(action)
 
 
 

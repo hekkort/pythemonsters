@@ -2,7 +2,7 @@ from pythemon import *
 
 class Field():
     def __init__(self, you, enemy):
-        self.field_width = 200
+        self.field_width = 220
         self.you = you
         self.enemy = enemy
 
@@ -36,9 +36,15 @@ class Field():
         return moves
     
     def format_ascii_right(self, spaces, index):
+        # print("Right called")
+        # print(f"Index: {index}")
+        # print(f"Length of ascii_lines_front: {self.you.height_front}")
         return spaces[:-len(self.enemy.ascii_lines_front[index])] + self.enemy.ascii_lines_front[index]
     
     def format_ascii_left(self, spaces, index):
+        # print("Left called")
+        # print(f"Index: {index}")
+        # print(f"Length of ascii_lines_back: {self.you.height_back}")
         return self.you.ascii_lines_back[index] + spaces[:-len(self.you.ascii_lines_back[index])]
 
     def add_top(self, spaces, dashes):
@@ -49,9 +55,41 @@ class Field():
         string += f"|{spaces} {self.format_ascii_right(spaces, 2)}|\n"
         return string
     
+    def add_top_padding(self, spaces):
+        # positive is enemy front sprite is bigger
+        # negative is friendly back sprite is bigger
+        if self.get_height_difference() <= 0:
+            return ""
+        string = ""
+        bottom = self.get_height_difference()
+        for i in range(2, bottom):
+            string += f"|{spaces} {self.format_ascii_right(spaces, i)}|\n"
+        return string
+    
+    def add_intersection(self, spaces):
+        string = ""
+        if self.get_height_difference() < 0:
+            for i in range(3, self.enemy.height_front):
+                string += f"|{self.format_ascii_left(spaces, i - 3)} {self.format_ascii_right(spaces, i)}|\n"
+            return string
+        elif self.get_height_difference() > 0:
+            for i in range(0, self.you.height_back - 2):
+                string += f"|{self.format_ascii_left(spaces, i)} {self.format_ascii_right(spaces, i + self.get_height_difference())}|\n"
+            return string
+        else:
+            return string
+
+    def add_bottom_padding(self, spaces):
+        if self.get_height_difference() >= 0:
+            return ""
+        string = ""
+        top = self.get_height_difference()
+        for i in range(top - 3, -2):
+            string += f"|{self.format_ascii_left(spaces, i)} {spaces}|\n"
+        return string
+
     def add_bottom(self, spaces):
         string = ""
-        string += f"|{self.format_ascii_left(spaces, -3)} {spaces}|\n"
         string += f"|{self.format_ascii_left(spaces, -2)} {self.add_you_name_padding()}|\n"
         string += f"|{self.format_ascii_left(spaces, -1)} {self.add_you_health_padding()}|\n"
         return string
@@ -64,6 +102,9 @@ class Field():
         string += f"|{moves_list[2]}|{moves_list[3]}|\n"
         string += f"+{dashes}" * 2 + "+\n"
         return string
+    
+    def get_height_difference(self):
+        return self.enemy.height_front - self.you.height_back
 
     def draw_field(self):
         final_string = ""
@@ -80,10 +121,9 @@ class Field():
                 padding += " "
             moves_list[i] += padding
         final_string += self.add_top(spaces, dashes)
-        for r in range(3, len(self.enemy.ascii_lines_front)):
-            final_string += f"|{self.format_ascii_left(spaces, r - 3)} {self.format_ascii_right(spaces, r)}|\n"
+        final_string += self.add_top_padding(spaces)
+        final_string += self.add_intersection(spaces)
+        final_string += self.add_bottom_padding(spaces)
         final_string += self.add_bottom(spaces)
         final_string += self.add_moves(moves_list, dashes)
         return final_string
-    
-   
