@@ -11,8 +11,9 @@ def main():
     squirtle = pythemon.Pythemon(7)
     mewtwo = pythemon.Pythemon(150)
     raticate = pythemon.Pythemon(20)
+    p = pythemon.Pythemon(83)
 
-    field = Field(raticate, raticate)
+    field = Field(charmander, p)
     print(field.draw_field())
 
 

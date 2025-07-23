@@ -68,7 +68,7 @@ class Field():
     
     def add_intersection(self, spaces):
         string = ""
-        if self.get_height_difference() < 0:
+        if self.get_height_difference() <= 0:
             for i in range(3, self.enemy.height_front):
                 string += f"|{self.format_ascii_left(spaces, i - 3)} {self.format_ascii_right(spaces, i)}|\n"
             return string
