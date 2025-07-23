@@ -2,7 +2,7 @@ from pythemon import *
 
 class Field():
     def __init__(self, you, enemy):
-        self.field_width = 220
+        self.field_width = 200
         self.you = you
         self.enemy = enemy
 
@@ -36,15 +36,9 @@ class Field():
         return moves
     
     def format_ascii_right(self, spaces, index):
-        # print("Right called")
-        # print(f"Index: {index}")
-        # print(f"Length of ascii_lines_front: {self.you.height_front}")
         return spaces[:-len(self.enemy.ascii_lines_front[index])] + self.enemy.ascii_lines_front[index]
     
     def format_ascii_left(self, spaces, index):
-        # print("Left called")
-        # print(f"Index: {index}")
-        # print(f"Length of ascii_lines_back: {self.you.height_back}")
         return self.you.ascii_lines_back[index] + spaces[:-len(self.you.ascii_lines_back[index])]
 
     def add_top(self, spaces, dashes):

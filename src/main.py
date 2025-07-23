@@ -11,10 +11,15 @@ def main():
     squirtle = pythemon.Pythemon(7)
     mewtwo = pythemon.Pythemon(150)
     raticate = pythemon.Pythemon(20)
-    p = pythemon.Pythemon(83)
+    farfetched = pythemon.Pythemon(83)
+    clefable = pythemon.Pythemon(40)
+    venusaur = pythemon.Pythemon(3)
+    charizard = pythemon.Pythemon(6)
 
-    field = Field(charmander, p)
+    field = Field(charmander, bulbasaur)
     print(field.draw_field())
+
+
 
 
     # while charmander.health > 0 and squirtle.health > 0:

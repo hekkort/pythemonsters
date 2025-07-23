@@ -25,7 +25,7 @@ def remove_left_white_space_of_back(filename):
                     break
                 break
     for i in range(len(lines)):
-        lines[i] = lines[i][current_low - 2:]
+        lines[i] = lines[i][max(current_low - 2, 0):]
     return lines
 
 def remove_left_white_space_of_front(filename):
@@ -61,11 +61,12 @@ def remove_right_white_space_of_back(filename):
                     break
                 break
     for i in range(len(lines)):
-        lines[i] = lines[i][:-current_low]
+        if current_low > 0:
+            lines[i] = lines[i][:-current_low]
     return lines
 
 def remove_right_white_space_of_front(filename):
-    lines = remove_left_white_space_of_back(filename)
+    lines = remove_left_white_space_of_front(filename)
     current_low = float("inf")
 
     for line in lines:
@@ -79,6 +80,8 @@ def remove_right_white_space_of_front(filename):
                     break
                 break
     for i in range(len(lines)):
-        lines[i] = lines[i][:-current_low + 2]
+    
+        if current_low > 0:
+            lines[i] = lines[i][:-current_low + 2]
     return lines
        

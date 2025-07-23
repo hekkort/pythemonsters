@@ -4,6 +4,7 @@ import random
 import ascii_magic
 import os
 import re
+from PIL import Image
 
 monsters = "/home/hekkort/workspace/github.com/hekkort/pythemonsters/monsters/"
 
@@ -69,6 +70,9 @@ class Pythemon():
         png = "png/"
         if os.path.isfile(filepath + text + f"back/{self.dex_entry}.txt"):
             os.remove(filepath + text + f"back/{self.dex_entry}.txt")
+        if not os.path.isdir(filepath + text + "back/"):
+            os.mkdir(filepath + text)
+            os.mkdir(filepath + text + "back/")
         with open(filepath + text + f"back/{self.dex_entry}.txt", "w", encoding="utf-8") as file:
             file.write(self._get_ascii_string(filepath + png + f"back/{self.dex_entry}.png"))
 
@@ -77,6 +81,8 @@ class Pythemon():
         png = "png/"
         if os.path.isfile(filepath + text + f"{self.dex_entry}.txt"):
             os.remove(filepath + text + f"{self.dex_entry}.txt")
+        if not os.path.isdir(filepath + text):
+            os.mkdir(filepath + text)
         with open(filepath + text + f"{self.dex_entry}.txt", "w", encoding="utf-8") as file:
             file.write(self._get_ascii_string(filepath + png + f"{self.dex_entry}.png"))
 

@@ -11,3 +11,5 @@ wheels/
 
 # VSCode settings
 .vscode
+monsters/text/
+monsters/text/back/
