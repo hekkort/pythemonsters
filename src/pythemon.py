@@ -59,6 +59,9 @@ class Pythemon():
             return 0
         return self._get_move_power(action)
     
+    def _resize_src_img(self, path):
+        pass
+    
     def _get_ascii_string(self, path):
         output = ascii_magic.from_image(path)
         ascii_colored = output.to_ascii()
