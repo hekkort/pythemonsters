@@ -59,10 +59,13 @@ class Pythemon():
             return 0
         return self._get_move_power(action)
     
-    def _resize_src_img(self, path):
-        pass
+    def _resize_src_img(self):
+        img = Image.open(f"{self.dex_entry}.png")
+        img.thumbnail((10, 10))  # Max width and height
+        img.save(f"{self.dex_entry}.jpg")
     
     def _get_ascii_string(self, path):
+        self._resize_src_img()
         output = ascii_magic.from_image(path)
         ascii_colored = output.to_ascii()
         ascii_grayscale = re.sub(r'\x1b\[[0-9;]*m', '', ascii_colored)
