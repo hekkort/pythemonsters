@@ -6,8 +6,8 @@ import os
 import re
 from PIL import Image
 
-monsters = "/home/hekkort/workspace/github.com/hekkort/pythemonsters/monsters/"
-
+root_of_project = os.getcwd()
+monsters = os.path.join(root_of_project + "/monsters/")
 class Pythemon():
     def __init__(self, dex_entry):
         
@@ -53,7 +53,8 @@ class Pythemon():
         return inner_dict[inner_key]
     
     def use_move(self, action):
-        
+        if self._get_move_accuracy(action) == 1:
+            return self._get_move_power(action)
         miss = random.random()
         if miss > self._get_move_accuracy(action):
             return 0
@@ -72,8 +73,7 @@ class Pythemon():
             with open(filepath + text + f"back/{self.dex_entry}.txt", "w", encoding="utf-8") as file:
                 file.write(self._get_ascii_string(filepath + png + f"back/{self.dex_entry}.png"))
         else:
-            os.mkdir(filepath + text)
-            os.mkdir(filepath + text + "back/")
+            os.makedirs(filepath + text + "back/", exist_ok=True)
             with open(filepath + text + f"back/{self.dex_entry}.txt", "w", encoding="utf-8") as file:
                 file.write(self._get_ascii_string(filepath + png + f"back/{self.dex_entry}.png"))
 
@@ -85,7 +85,7 @@ class Pythemon():
                 file.write(self._get_ascii_string(filepath + png + f"{self.dex_entry}.png"))
 
         else:
-            os.mkdir(filepath + text)
+            os.makedirs(filepath + text, exist_ok=True)
             with open(filepath + text + f"{self.dex_entry}.txt", "w", encoding="utf-8") as file:
                 file.write(self._get_ascii_string(filepath + png + f"{self.dex_entry}.png"))
 
