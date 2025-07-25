@@ -6,17 +6,14 @@ def main():
 
     monsters = "/home/hekkort/workspace/github.com/hekkort/pythemonsters/monsters/"
 
-    bulbasaur = pythemon.Pythemon(1)
-    charmander = pythemon.Pythemon(4)
-    squirtle = pythemon.Pythemon(7)
-    mewtwo = pythemon.Pythemon(150)
-    raticate = pythemon.Pythemon(20)
-    farfetched = pythemon.Pythemon(83)
-    clefable = pythemon.Pythemon(40)
-    venusaur = pythemon.Pythemon(3)
-    charizard = pythemon.Pythemon(6)
+    pokemon = []
+    count = 1
 
-    field = Field(charmander, bulbasaur)
+    while count < 12:
+        pokemon.append(pythemon.Pythemon(count))
+        count += 1
+    
+    field = Field(pokemon[4], pokemon[10])
     print(field.draw_field())
 
 
