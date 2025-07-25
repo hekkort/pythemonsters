@@ -82,6 +82,6 @@ def remove_right_white_space_of_front(filename):
     for i in range(len(lines)):
     
         if current_low > 0:
-            lines[i] = lines[i][:-current_low + 2]
+            lines[i] = lines[i][:-current_low]
     return lines
        

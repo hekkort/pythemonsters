@@ -2,7 +2,7 @@ from pythemon import *
 
 class Field():
     def __init__(self, you, enemy):
-        self.field_width = 200
+        self.field_width = 130
         self.you = you
         self.enemy = enemy
 

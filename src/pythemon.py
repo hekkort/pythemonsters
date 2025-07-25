@@ -59,15 +59,9 @@ class Pythemon():
             return 0
         return self._get_move_power(action)
     
-    def _resize_src_img(self):
-        img = Image.open(f"{self.dex_entry}.png")
-        img.thumbnail((10, 10))  # Max width and height
-        img.save(f"{self.dex_entry}.jpg")
-    
     def _get_ascii_string(self, path):
-        self._resize_src_img()
         output = ascii_magic.from_image(path)
-        ascii_colored = output.to_ascii()
+        ascii_colored = output.to_ascii(columns=60)
         ascii_grayscale = re.sub(r'\x1b\[[0-9;]*m', '', ascii_colored)
         return ascii_grayscale
 
@@ -75,22 +69,25 @@ class Pythemon():
         text = "text/"
         png = "png/"
         if os.path.isfile(filepath + text + f"back/{self.dex_entry}.txt"):
-            os.remove(filepath + text + f"back/{self.dex_entry}.txt")
-        if not os.path.isdir(filepath + text + "back/"):
+            with open(filepath + text + f"back/{self.dex_entry}.txt", "w", encoding="utf-8") as file:
+                file.write(self._get_ascii_string(filepath + png + f"back/{self.dex_entry}.png"))
+        else:
             os.mkdir(filepath + text)
             os.mkdir(filepath + text + "back/")
-        with open(filepath + text + f"back/{self.dex_entry}.txt", "w", encoding="utf-8") as file:
-            file.write(self._get_ascii_string(filepath + png + f"back/{self.dex_entry}.png"))
+            with open(filepath + text + f"back/{self.dex_entry}.txt", "w", encoding="utf-8") as file:
+                file.write(self._get_ascii_string(filepath + png + f"back/{self.dex_entry}.png"))
 
     def _create_ascii_text_front(self, filepath):
         text = "text/"
         png = "png/"
         if os.path.isfile(filepath + text + f"{self.dex_entry}.txt"):
-            os.remove(filepath + text + f"{self.dex_entry}.txt")
-        if not os.path.isdir(filepath + text):
+            with open(filepath + text + f"{self.dex_entry}.txt", "w", encoding="utf-8") as file:
+                file.write(self._get_ascii_string(filepath + png + f"{self.dex_entry}.png"))
+
+        else:
             os.mkdir(filepath + text)
-        with open(filepath + text + f"{self.dex_entry}.txt", "w", encoding="utf-8") as file:
-            file.write(self._get_ascii_string(filepath + png + f"{self.dex_entry}.png"))
+            with open(filepath + text + f"{self.dex_entry}.txt", "w", encoding="utf-8") as file:
+                file.write(self._get_ascii_string(filepath + png + f"{self.dex_entry}.png"))
 
     def print_front(self):
         for f in self.ascii_lines_front:

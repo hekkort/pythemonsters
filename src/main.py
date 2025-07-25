@@ -12,8 +12,7 @@ def main():
     while count < 12:
         pokemon.append(pythemon.Pythemon(count))
         count += 1
-    
-    field = Field(pokemon[4], pokemon[10])
+    field = Field(pokemon[5], pokemon[8])
     print(field.draw_field())
 
 
