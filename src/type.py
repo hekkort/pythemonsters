@@ -16,3 +16,4 @@ class Type(Enum):
     ROCK = "rock"
     BUG = "bug"
     GHOST = "ghost"
+    DARK = "dark"

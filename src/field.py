@@ -31,6 +31,9 @@ class Field():
         return str(self.you.health) + you_health_padding
     
     def format_moves_list(self, moves):
+
+        moves = list(moves)
+        moves = [name for name, _ in moves]
         for i in range(len(moves)):
             moves[i] = f" {i + 1}. {moves[i]}"
         return moves
