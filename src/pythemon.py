@@ -23,15 +23,15 @@ class Pythemon():
                 self.name = "Charmander"
             case 7:
                 self.type = [Type.WATER]
-                self.moves = {"Water Gun": {40: 1}, "Rapid Spin": {50, 1}, "Bite": {60: 1}, "Whirlpool": {35: 0.85}}
+                self.moves = {"Water Gun": {40: 1}, "Rapid Spin": {50: 1}, "Bite": {60: 1}, "Whirlpool": {35: 0.85}}
                 self.name = "Squirtle"
             case 150:
                 self.type = [Type.PSYCHIC]
-                self.moves = {"Psybeam": {65: 1}, "Brick Break": {75, 1}, "Psyshock": {80: 1}, "Psychic": {90: 1}}
+                self.moves = {"Psybeam": {65: 1}, "Brick Break": {75: 1}, "Psyshock": {80: 1}, "Psychic": {90: 1}}
                 self.name = "Mewtwo"
             case _:
                 self.type = [Type.NORMAL]
-                self.moves = {"Move 1": {10: 1}, "Move 2": {10, 1}, "Move 3": {10: 1}, "Move 4": {10: 1}}
+                self.moves = {"Move 1": {10: 1}, "Move 2": {10: 1}, "Move 3": {10: 1}, "Move 4": {10: 1}}
                 self.name = "Placeholder"
         self._create_ascii_text_back(monsters)
         self._create_ascii_text_front(monsters)
