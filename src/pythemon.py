@@ -27,7 +27,7 @@ class Pythemon():
                 self.name = "Squirtle"
             case 150:
                 self.type = [Type.PSYCHIC]
-                self.moves = {("Psybeam", Type.PSYCHIC): {65: 1}, ("Brick Break", Type.FIGHTING): {75: 1}, ("Psyshock", Type.PSYCHIC): {80: 1}, ("Psychic", type.PSYCHIC): {90: 1}}
+                self.moves = {("Psybeam", Type.PSYCHIC): {65: 1}, ("Brick Break", Type.FIGHTING): {75: 1}, ("Psyshock", Type.PSYCHIC): {80: 1}, ("Psychic", Type.PSYCHIC): {90: 1}}
                 self.name = "Mewtwo"
             case _:
                 self.type = [Type.NORMAL]
