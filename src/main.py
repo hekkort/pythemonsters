@@ -35,7 +35,7 @@ def main():
                 print(f"You missed!")
             
             if enemy_pythemon.use_move(action) != 0:
-                print(f"Enemy hit {enemy_pythemon.name} for {your_pythemon.use_move(action)}!")
+                print(f"Enemy hit {your_pythemon.name} for {enemy_pythemon.use_move(action)}!")
             else:
                 print(f"Enemy missed!")
         break
