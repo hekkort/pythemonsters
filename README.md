@@ -2,8 +2,16 @@
 
 Still need to implement more logic for battles.
 
-# Interface
+## Interface
 
 activate venv -> source ./venv.sh
 install requirements -> uv pip install -r requirements.txt
 type ./main.sh and you'll see the interface which will prompt you for an attack, one through four.
+
+## Roadmap
+
+Add type to moves 
+Add super effective
+Add not very effective
+Maybe status effects as well
+
