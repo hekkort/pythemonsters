@@ -17,4 +17,5 @@ Maybe status effects as well
 
 ## So far
 
-Very basic logic for moves that have power implemented so far. Will probably pick this up again down the road but I consider it done for now.
+Implementing all the logic for a proper pokemon battle is a lot of work so for now I consider this barebones version done.
+I will probably pick this up down the road again to implement more.
