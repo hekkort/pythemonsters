@@ -17,3 +17,5 @@ class Type(Enum):
     BUG = "bug"
     GHOST = "ghost"
     DARK = "dark"
+    FAIRY = "fairy"
+    STEEL = "steel"
