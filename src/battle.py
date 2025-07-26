@@ -1,7 +1,6 @@
 import pythemon
 import yaml
 import os
-from type import Type
 import random
 
 root_of_project = os.getcwd()
