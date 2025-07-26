@@ -40,7 +40,7 @@ class Pythemon():
             if move["power"] != "" and move["accuracy"] != "":
                 move_type = Type(types[int(move["type_id"]) - 1]["identifier"])
 
-                if move_type in self.type or move_type == Type.NORMAL:
+                if move_type in self.type:
                     name_power_accuracy = move["identifier"].replace("-", " ").title() + f"    {move['power']} {move['accuracy']}"
                     name = move["identifier"].replace("-", " ").title()
                     power = int(move["power"])
