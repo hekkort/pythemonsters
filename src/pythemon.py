@@ -16,7 +16,7 @@ class Pythemon():
             monster_species = yaml.safe_load(f)
         monster_species = monster_species[dex_entry - 1]
         self.dex_entry = monster_species["id"]
-        self.name = monster_species["identifier"].capitalize()
+        self.name = monster_species["identifier"].replace("-", " ").title()
         with open(monsters + "data/pokemon_types.yaml") as f:
             monster_types = yaml.safe_load(f)
         type_list = []
