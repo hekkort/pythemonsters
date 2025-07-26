@@ -79,6 +79,13 @@ class Pythemon():
             return 0
         return self._get_move_power(action)
     
+    def get_ascii_string(self, path):
+        front_output = ascii_magic.from_image(path + f"png/{self.dex_entry}.png")
+        back_output = ascii_magic.from_image(path + f"png/back/{self.dex_entry}.png")
+        front_ascii_colored = front_output.to_ascii()
+        back_ascii_colored = back_output.to_ascii()
+        return front_ascii_colored, back_ascii_colored
+    
     def _get_ascii_string(self, path):
         output = ascii_magic.from_image(path)
         ascii_colored = output.to_ascii(columns=60)
