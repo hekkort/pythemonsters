@@ -4,6 +4,17 @@ This project requires uv, install uv: curl -LsSf https://astral.sh/uv/install.sh
 
 ## Interface
 
+### Optional:
+
+- nano ~/.bashrc (on linux)
+- scroll to the bottom
+- add alias venv='source ./venv.sh'
+- add alias main='./main.sh'
+- activate venv: venv
+- run the game: main
+
+### Or otherwise:
+
 Activate venv -> source ./venv.sh.
 Install requirements -> uv add -r requirements.txt.
 Type ./main.sh and you'll see the interface which will prompt you for an attack, one through four.
