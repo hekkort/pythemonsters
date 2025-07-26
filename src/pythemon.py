@@ -58,16 +58,17 @@ class Pythemon():
         self.health = 400
 
     def _get_move_power(self, action):
-        
         return list(self.moves[list(self.moves.keys())[int(action) - 1]].keys())[0]
     
     def _get_move_accuracy(self, action):
-
         outer_key = list(self.moves.keys())[int(action) - 1]
         inner_dict = self.moves[outer_key]
         inner_key = next(iter(inner_dict))
         return inner_dict[inner_key]
     
+    def get_move_type(self, action):
+        return list(self.moves.keys())[int(action) - 1][1]
+
     def get_move_name(self, action):
         return self.move_names[int(action) - 1]
     
@@ -78,13 +79,6 @@ class Pythemon():
         if miss > self._get_move_accuracy(action):
             return 0
         return self._get_move_power(action)
-    
-    def get_ascii_string(self, path):
-        front_output = ascii_magic.from_image(path + f"png/{self.dex_entry}.png")
-        back_output = ascii_magic.from_image(path + f"png/back/{self.dex_entry}.png")
-        front_ascii_colored = front_output.to_ascii()
-        back_ascii_colored = back_output.to_ascii()
-        return front_ascii_colored, back_ascii_colored
     
     def _get_ascii_string(self, path):
         output = ascii_magic.from_image(path)

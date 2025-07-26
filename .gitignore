@@ -13,7 +13,4 @@ wheels/
 .vscode
 monsters/text/
 monsters/text/back/
-monsters/data/moves.yaml
-monsters/data/pokemon_species.yaml
-monsters/data/pokemon_types.yaml
-monsters/data/types.yaml
+monsters/data/*.yaml

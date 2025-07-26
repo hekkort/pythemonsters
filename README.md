@@ -1,17 +1,20 @@
 # Pokémon style turn and text based battler
 
-Still need to implement more logic for battles.
+This project requires uv, install uv: curl -LsSf https://astral.sh/uv/install.sh | sh
 
 ## Interface
 
-activate venv -> source ./venv.sh.
-install requirements -> uv pip install -r requirements.txt.
-type ./main.sh and you'll see the interface which will prompt you for an attack, one through four.
+Activate venv -> source ./venv.sh.
+Install requirements -> uv add -r requirements.txt.
+Type ./main.sh and you'll see the interface which will prompt you for an attack, one through four.
 
 ## Roadmap
 
 Add type to moves (Done)
-Add super effective
-Add not very effective
+Add super effective (Done)
+Add not very effective (Done)
 Maybe status effects as well
 
+## So far
+
+Very basic logic for moves that have power implemented so far. Will probably pick this up again down the road but I consider it done for now.
