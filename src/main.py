@@ -26,11 +26,11 @@ def main():
             while not action.isdigit() or not (1 <= int(action) <= 4):
                 action = input("Choose a valid integer, one through four: ")
                 
-
-            
-            enemy_pythemon.health -= your_pythemon.use_move(action)
+            damage_to_enemy = your_pythemon.use_move(action)
+            enemy_pythemon.health -= damage_to_enemy
             enemy_action = random.randint(1, 4)
-            your_pythemon.health -= enemy_pythemon.use_move(enemy_action)
+            damage_to_you = enemy_pythemon.use_move(enemy_action)
+            your_pythemon.health -= damage_to_you
 
             if your_pythemon.health <= 0 or enemy_pythemon.health <= 0:
                 if enemy_pythemon.health <= 0:
@@ -39,15 +39,18 @@ def main():
                     print("The enemy won!")
                 break
             print(field.draw_field())
-            if your_pythemon.use_move(action) != 0:
-                print(f"Your {your_pythemon.name} hit the enemy {enemy_pythemon.name} with {your_pythemon.get_move_name(action)} for {your_pythemon.use_move(action)}!")
+
+
+
+            if damage_to_enemy != 0:
+                print(f"Your {your_pythemon.name} hit the enemy {enemy_pythemon.name} with {your_pythemon.get_move_name(action)} for {damage_to_enemy}!")
             else:
-                print(f"You missed!")
+                print(f"Your {your_pythemon.name} used {your_pythemon.get_move_name(action)}, but missed!")
             
-            if enemy_pythemon.use_move(action) != 0:
-                print(f"The enemy {enemy_pythemon.name} hit your {your_pythemon.name} with {enemy_pythemon.get_move_name(enemy_action)} for {enemy_pythemon.use_move(enemy_action)}!")
+            if damage_to_you != 0:
+                print(f"The enemy {enemy_pythemon.name} hit your {your_pythemon.name} with {enemy_pythemon.get_move_name(enemy_action)} for {damage_to_you}!")
             else:
-                print(f"Enemy missed!")
+                print(f"The enemy {enemy_pythemon.name} used {enemy_pythemon.get_move_name(enemy_action)}, but missed!")
         break
 
 

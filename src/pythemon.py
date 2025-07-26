@@ -32,6 +32,7 @@ class Pythemon():
             moves = yaml.safe_load(f)
 
         self.moves = {}
+        self.move_names = []
         while len(self.moves) < 4:
             random_move = random.randint(1, 826)
             move = moves[random_move - 1]
@@ -39,11 +40,14 @@ class Pythemon():
             if move["power"] != "" and move["accuracy"] != "":
                 move_type = Type(types[int(move["type_id"]) - 1]["identifier"])
 
-                if move_type in self.type:
+                if move_type in self.type or move_type == Type.NORMAL:
+                    name_power_accuracy = move["identifier"].replace("-", " ").title() + f"    {move['power']} {move['accuracy']}"
                     name = move["identifier"].replace("-", " ").title()
                     power = int(move["power"])
                     accuracy = float(move["accuracy"]) / 100
-                    self.moves.update({(name, move_type): {power: accuracy}})
+                    self.moves.update({(name_power_accuracy, move_type): {power: accuracy}})
+                    self.move_names.append(name)
+
 
         self._create_ascii_text_back(monsters)
         self._create_ascii_text_front(monsters)
@@ -65,7 +69,7 @@ class Pythemon():
         return inner_dict[inner_key]
     
     def get_move_name(self, action):
-        return list(self.moves.keys())[int(action) - 1][0]
+        return self.move_names[int(action) - 1]
     
     def use_move(self, action):
         if self._get_move_accuracy(action) == 1:
