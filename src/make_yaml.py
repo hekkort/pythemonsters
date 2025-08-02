@@ -52,3 +52,11 @@ def make_yaml_from_csv():
 
         with open(monsters + "yaml/pokemon_stats.yaml", "w", encoding="utf-8") as f:
             yaml.dump(pokemon_stats, f, allow_unicode=True)
+    
+    if not os.path.exists(monsters + "yaml/stats.yaml"):
+        with open(monsters + "csv/stats.csv", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            stats = list(reader)
+
+        with open(monsters + "yaml/stats.yaml", "w", encoding="utf-8") as f:
+            yaml.dump(stats, f, allow_unicode=True)

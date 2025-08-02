@@ -15,7 +15,7 @@ class Pythemon():
         with open(monsters + "data/yaml/pokemon_species.yaml") as f:
             monster_species = yaml.safe_load(f)
         monster_species = monster_species[dex_entry - 1]
-        self.dex_entry = monster_species["id"]
+        self.dex_entry = int(monster_species["id"])
         self.name = monster_species["identifier"].replace("-", " ").title()
         with open(monsters + "data/yaml/pokemon_types.yaml") as f:
             monster_types = yaml.safe_load(f)
@@ -55,7 +55,21 @@ class Pythemon():
         self.ascii_lines_front = make_ascii_of_monster_front(monsters + "text/" + str(self.dex_entry) + ".txt")
         self.height_back = len(self.ascii_lines_back)
         self.height_front = len(self.ascii_lines_front)
-        self.health = 400
+        self.base_stats = self._add_base_stats()
+
+        
+
+    def _add_base_stats(self):
+        with open(monsters + "data/yaml/stats.yaml") as f:
+            stats = yaml.safe_load(f)
+        with open(monsters + "data/yaml/pokemon_stats.yaml") as f:
+            pokemon_stats = yaml.safe_load(f)
+        pokemon_stat_list = []
+        for p in pokemon_stats:
+            if p["pokemon_id"] == str(self.dex_entry):
+                pokemon_stat_list.append(p)
+        return pokemon_stat_list
+
 
     def _get_move_power(self, action):
         return list(self.moves[list(self.moves.keys())[int(action) - 1]].keys())[0]
@@ -116,3 +130,5 @@ class Pythemon():
     def print_back(self):
         for b in self.ascii_lines_back:
             print(b)
+
+print(Pythemon(1).add_base_stats())
