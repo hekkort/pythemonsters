@@ -18,7 +18,7 @@ def calculate_effectiveness(attacker, target, action):
     target_type_id = []
     effectiveness = 1
 
-    with open(monsters + "data/types.yaml") as f:
+    with open(monsters + "data/yaml/types.yaml") as f:
         types = yaml.safe_load(f)
     for t in types:
         if t["identifier"] == move_type.value:
@@ -27,7 +27,7 @@ def calculate_effectiveness(attacker, target, action):
         for t in types:
             if t["identifier"] == type.value:
                 target_type_id.append(t["id"])
-    with open(monsters + "data/type_efficacy.yaml") as f:
+    with open(monsters + "data/yaml/type_efficacy.yaml") as f:
         type_efficacies = yaml.safe_load(f)
     for t_type_id in target_type_id:
         for t in type_efficacies:

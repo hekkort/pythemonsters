@@ -12,23 +12,23 @@ monsters = os.path.join(root_of_project + "/monsters/")
 class Pythemon():
     def __init__(self, dex_entry):
 
-        with open(monsters + "data/pokemon_species.yaml") as f:
+        with open(monsters + "data/yaml/pokemon_species.yaml") as f:
             monster_species = yaml.safe_load(f)
         monster_species = monster_species[dex_entry - 1]
         self.dex_entry = monster_species["id"]
         self.name = monster_species["identifier"].replace("-", " ").title()
-        with open(monsters + "data/pokemon_types.yaml") as f:
+        with open(monsters + "data/yaml/pokemon_types.yaml") as f:
             monster_types = yaml.safe_load(f)
         type_list = []
         for m in monster_types:
             if m["pokemon_id"] == f'{self.dex_entry}':
                 type_list.append(m)
-        with open(monsters + "data/types.yaml") as f:
+        with open(monsters + "data/yaml/types.yaml") as f:
             types = yaml.safe_load(f)
         self.type = []
         for i in range(len(type_list)):
             self.type.append(Type(types[int(type_list[i]["type_id"]) - 1]["identifier"]))
-        with open(monsters + "data/moves.yaml") as f:
+        with open(monsters + "data/yaml/moves.yaml") as f:
             moves = yaml.safe_load(f)
 
         self.moves = {}
