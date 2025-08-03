@@ -6,11 +6,10 @@ import battle
 
 
 def main():
-    
+    make_yaml.make_yaml_from_csv()
+
 
     while True:
-
-        make_yaml.make_yaml_from_csv()
 
         you = input("Select your pokemon by dex entry: ")
         your_pythemon = pythemon.Pythemon(int(you))

@@ -55,9 +55,36 @@ class Pythemon():
         self.ascii_lines_front = make_ascii_of_monster_front(monsters + "text/" + str(self.dex_entry) + ".txt")
         self.height_back = len(self.ascii_lines_back)
         self.height_front = len(self.ascii_lines_front)
+        self.level = 100
+        self.iv = self._get_iv()
+        self.ev = self._get_ev()
         self.base_stats = self._add_base_stats()
+        self.health = self._get_hp_at_level()
 
-        
+        self.stats = self._get_all_stats()
+
+    def _get_hp_at_level(self):
+        return ((2 * int(self.base_stats[0]["base_stat"]) + self.iv[0] + (self.ev[0] // 4)) * self.level // 100) + self.level + 10
+    
+    def _get_all_stats(self):
+        stats = {}
+        stats.update({"hp": self.health})
+        for i in range(5):
+            stats.update({self.base_stats[i + 1]["identifier"]:
+                          (((2 * int(self.base_stats[i + 1]["base_stat"]) + self.iv[i + 1] + (self.ev[i + 1] // 4)) * self.level) // 100) + 5}) 
+        return stats
+
+    def _get_iv(self):
+        iv = []
+        for i in range(6):
+            iv.append(random.randint(0, 31))
+        return iv
+    
+    def _get_ev(self):
+        ev = []
+        for i in range(6):
+            ev.append(0)
+        return ev
 
     def _add_base_stats(self):
         with open(monsters + "data/yaml/stats.yaml") as f:
@@ -68,6 +95,8 @@ class Pythemon():
         for p in pokemon_stats:
             if p["pokemon_id"] == str(self.dex_entry):
                 pokemon_stat_list.append(p)
+        for i in range(len(pokemon_stat_list)):
+            pokemon_stat_list[i].update({"identifier": stats[i]["identifier"]})
         return pokemon_stat_list
 
 
@@ -130,5 +159,3 @@ class Pythemon():
     def print_back(self):
         for b in self.ascii_lines_back:
             print(b)
-
-print(Pythemon(1).add_base_stats())

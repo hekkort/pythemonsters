@@ -1,2 +1,2 @@
 
-python3 src/pythemon.py "$@"
+python3 src/main.py "$@"
