@@ -15,8 +15,43 @@ class Pythemon():
         with open(monsters + "data/yaml/pokemon_species.yaml") as f:
             monster_species = yaml.safe_load(f)
         monster_species = monster_species[dex_entry - 1]
+        
         self.dex_entry = int(monster_species["id"])
         self.name = monster_species["identifier"].replace("-", " ").title()
+        self.type = self._set_types()
+        self.moves = self._set_moves()
+        self.level = 100
+        self.iv = self._set_iv()
+        self.ev = self._set_ev()
+        self.base_stats = self._set_base_stats()
+        self.health = self._set_hp_at_level()
+        self.stats = self._set_max_stats()
+
+        self._create_ascii_text_back(monsters)
+        self._create_ascii_text_front(monsters)
+        self.ascii_lines_back = make_ascii_of_monster_back(monsters + "text/back/" + str(self.dex_entry) + ".txt")
+        self.ascii_lines_front = make_ascii_of_monster_front(monsters + "text/" + str(self.dex_entry) + ".txt")
+        self.height_back = len(self.ascii_lines_back)
+        self.height_front = len(self.ascii_lines_front)
+
+    def _set_moves(self):
+        with open(monsters + "data/yaml/moves.yaml") as f:
+            moves = yaml.safe_load(f)
+        moves_of_type = []
+        for m in moves:
+            for t in self.type:
+                if m["type_id"] == t["type_id"]:
+                    m.update({"type": t["identifier"]})
+                    moves_of_type.append(m)
+        move_set = []
+        while len(move_set) < 4:
+            random_move = random.randint(1, len(moves_of_type))
+            move = moves_of_type[random_move - 1]
+            if move["power"] != "" and move["accuracy"] != "":
+                move_set.append(move)
+        return move_set
+
+    def _set_types(self):
         with open(monsters + "data/yaml/pokemon_types.yaml") as f:
             monster_types = yaml.safe_load(f)
         type_list = []
@@ -25,48 +60,18 @@ class Pythemon():
                 type_list.append(m)
         with open(monsters + "data/yaml/types.yaml") as f:
             types = yaml.safe_load(f)
-        self.type = []
-        for i in range(len(type_list)):
-            self.type.append(Type(types[int(type_list[i]["type_id"]) - 1]["identifier"]))
-        with open(monsters + "data/yaml/moves.yaml") as f:
-            moves = yaml.safe_load(f)
-
-        self.moves = {}
-        self.move_names = []
-        while len(self.moves) < 4:
-            random_move = random.randint(1, 826)
-            move = moves[random_move - 1]
-
-            if move["power"] != "" and move["accuracy"] != "":
-                move_type = Type(types[int(move["type_id"]) - 1]["identifier"])
-
-                if move_type in self.type:
-                    name_power_accuracy = move["identifier"].replace("-", " ").title() + f"    {move['power']} {move['accuracy']}"
-                    name = move["identifier"].replace("-", " ").title()
-                    power = int(move["power"])
-                    accuracy = float(move["accuracy"]) / 100
-                    self.moves.update({(name_power_accuracy, move_type): {power: accuracy}})
-                    self.move_names.append(name)
-
-
-        self._create_ascii_text_back(monsters)
-        self._create_ascii_text_front(monsters)
-        self.ascii_lines_back = make_ascii_of_monster_back(monsters + "text/back/" + str(self.dex_entry) + ".txt")
-        self.ascii_lines_front = make_ascii_of_monster_front(monsters + "text/" + str(self.dex_entry) + ".txt")
-        self.height_back = len(self.ascii_lines_back)
-        self.height_front = len(self.ascii_lines_front)
-        self.level = 100
-        self.iv = self._get_iv()
-        self.ev = self._get_ev()
-        self.base_stats = self._add_base_stats()
-        self.health = self._get_hp_at_level()
-
-        self.stats = self._get_all_stats()
-
-    def _get_hp_at_level(self):
-        return ((2 * int(self.base_stats[0]["base_stat"]) + self.iv[0] + (self.ev[0] // 4)) * self.level // 100) + self.level + 10
+        for t in type_list:
+            for item in types:
+                if t["type_id"] == item["id"]:
+                    t.update({"identifier": item["identifier"]})
+        return type_list
     
-    def _get_all_stats(self):
+    def _set_hp_at_level(self):
+        hp = ((2 * int(self.base_stats[0]["base_stat"]) + self.iv[0] + (self.ev[0] // 4)) * self.level // 100) + self.level + 10
+        print(f"For {self.name} adding: {hp} for hp")
+        return hp
+    
+    def _set_max_stats(self):
         stats = {}
         stats.update({"hp": self.health})
         
@@ -77,19 +82,19 @@ class Pythemon():
             print(f"For {self.name} adding: {stat} for {identifier}")
         return stats
 
-    def _get_iv(self):
+    def _set_iv(self):
         iv = []
         for i in range(6):
             iv.append(random.randint(0, 31))
         return iv
     
-    def _get_ev(self):
+    def _set_ev(self):
         ev = []
         for i in range(6):
             ev.append(0)
         return ev
 
-    def _add_base_stats(self):
+    def _set_base_stats(self):
         with open(monsters + "data/yaml/stats.yaml") as f:
             stats = yaml.safe_load(f)
         with open(monsters + "data/yaml/pokemon_stats.yaml") as f:
@@ -102,21 +107,17 @@ class Pythemon():
             pokemon_stat_list[i].update({"identifier": stats[i]["identifier"]})
         return pokemon_stat_list
 
-
     def _get_move_power(self, action):
-        return list(self.moves[list(self.moves.keys())[int(action) - 1]].keys())[0]
+        return int(self.moves[int(action) - 1]["power"])
     
     def _get_move_accuracy(self, action):
-        outer_key = list(self.moves.keys())[int(action) - 1]
-        inner_dict = self.moves[outer_key]
-        inner_key = next(iter(inner_dict))
-        return inner_dict[inner_key]
+        return int(self.moves[int(action) - 1]["accuracy"])
     
     def get_move_type(self, action):
-        return list(self.moves.keys())[int(action) - 1][1]
+        return Type(self.moves[int(action) - 1]["type"])
 
     def get_move_name(self, action):
-        return self.move_names[int(action) - 1]
+        return self.moves[int(action) - 1]["identifier"].title()
     
     def use_move(self, action):
         if self._get_move_accuracy(action) == 1:

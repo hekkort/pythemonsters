@@ -1,7 +1,7 @@
 from pythemon import *
 
 class Field():
-    def __init__(self, you, enemy):
+    def __init__(self, you: Pythemon, enemy: Pythemon):
         self.field_width = 130
         self.you = you
         self.enemy = enemy
@@ -32,11 +32,10 @@ class Field():
     
     def format_moves_list(self, moves):
 
-        moves = list(moves)
-        moves = [name for name, _ in moves]
+        name_of_moves = []
         for i in range(len(moves)):
-            moves[i] = f" {i + 1}. {moves[i]}"
-        return moves
+            name_of_moves.append(f" {i + 1}. {moves[i]['identifier'].title()}")
+        return name_of_moves
     
     def format_ascii_right(self, spaces, index):
         return spaces[:-len(self.enemy.ascii_lines_front[index])] + self.enemy.ascii_lines_front[index]
@@ -107,7 +106,7 @@ class Field():
         final_string = ""
         dashes = ""
         spaces = ""
-        moves_list = self.format_moves_list(list(self.you.moves.keys()))
+        moves_list = self.format_moves_list(self.you.moves)
 
         for i in range(self.field_width // 2):
             dashes += "-"
