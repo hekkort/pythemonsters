@@ -71,7 +71,8 @@ class Pythemon():
         stats.update({"hp": self.health})
         for i in range(5):
             stats.update({self.base_stats[i + 1]["identifier"]:
-                          (((2 * int(self.base_stats[i + 1]["base_stat"]) + self.iv[i + 1] + (self.ev[i + 1] // 4)) * self.level) // 100) + 5}) 
+                          (((2 * int(self.base_stats[i + 1]["base_stat"]) + self.iv[i + 1] + (self.ev[i + 1] // 4)) * self.level) // 100) + 5})
+            print(f"adding: {self.base_stats[i + 1]['identifier']}: {(((2 * int(self.base_stats[i + 1]['base_stat']) + self.iv[i + 1] + (self.ev[i + 1] // 4)) * self.level) // 100) + 5}")
         return stats
 
     def _get_iv(self):
