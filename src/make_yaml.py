@@ -61,4 +61,3 @@ def make_yaml_from_csv():
         with open(monsters + "yaml/stats.yaml", "w", encoding="utf-8") as f:
             yaml.dump(stats, f, allow_unicode=True)
 
-make_yaml_from_csv()
