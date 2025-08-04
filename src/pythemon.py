@@ -36,7 +36,7 @@ class Pythemon():
         self.height_front = len(self.ascii_lines_front)
 
     def _set_moves(self):
-        with open(monsters + "data/yaml/moves.yaml") as f:
+        with open(os.path.join(monsters, "data", "yaml" "moves.yaml")) as f:
             moves = yaml.safe_load(f)
         moves_of_type = []
         for m in moves:
@@ -53,13 +53,13 @@ class Pythemon():
         return move_set
 
     def _set_types(self):
-        with open(monsters + "data/yaml/pokemon_types.yaml") as f:
+        with open(os.path.join(monsters, "data", "yaml", "pokemon_types.yaml")) as f:
             monster_types = yaml.safe_load(f)
         type_list = []
         for m in monster_types:
             if m["pokemon_id"] == f'{self.dex_entry}':
                 type_list.append(m)
-        with open(monsters + "data/yaml/types.yaml") as f:
+        with open(os.path.join(monsters, "data", "yaml", "types.yaml")) as f:
             types = yaml.safe_load(f)
         for t in type_list:
             for item in types:
@@ -96,9 +96,9 @@ class Pythemon():
         return ev
 
     def _set_base_stats(self):
-        with open(monsters + "data/yaml/stats.yaml") as f:
+        with open(os.path.join(monsters, "data", "yaml", "stats.yaml")) as f:
             stats = yaml.safe_load(f)
-        with open(monsters + "data/yaml/pokemon_stats.yaml") as f:
+        with open(os.path.join(monsters, "data", "yaml", "pokemon_stats.yaml")) as f:
             pokemon_stats = yaml.safe_load(f)
         pokemon_stat_list = []
         for p in pokemon_stats:
