@@ -7,7 +7,7 @@ import re
 import yaml
 
 root_of_project = os.getcwd()
-monsters = os.path.join(root_of_project + "/monsters/")
+monsters = os.path.join(root_of_project, "monsters")
 
 class Pythemon():
     def __init__(self, dex_entry):
