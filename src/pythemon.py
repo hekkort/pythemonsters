@@ -13,7 +13,7 @@ monsters = os.path.join(root_of_project, "monsters")
 class Pythemon():
     def __init__(self, dex_entry):
 
-        with open(monsters + "data/yaml/pokemon_species.yaml") as f:
+        with open(os.path.join(monsters, "data", "yaml", "pokemon_species.yaml")) as f:
             monster_species = yaml.safe_load(f)
         monster_species = monster_species[dex_entry - 1]
         
