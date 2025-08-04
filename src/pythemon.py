@@ -36,7 +36,7 @@ class Pythemon():
         self.height_front = len(self.ascii_lines_front)
 
     def _set_moves(self):
-        with open(os.path.join(monsters, "data", "yaml" "moves.yaml")) as f:
+        with open(os.path.join(monsters, "data", "yaml", "moves.yaml")) as f:
             moves = yaml.safe_load(f)
         moves_of_type = []
         for m in moves:
