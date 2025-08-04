@@ -134,27 +134,27 @@ class Pythemon():
         return ascii_grayscale
 
     def _create_ascii_text_back(self, filepath):
-        text = "text/"
-        png = "png/"
-        if os.path.isfile(filepath + text + f"back/{self.dex_entry}.txt"):
-            with open(filepath + text + f"back/{self.dex_entry}.txt", "w", encoding="utf-8") as file:
-                file.write(self._get_ascii_string(filepath + png + f"back/{self.dex_entry}.png"))
+        back = os.path.join(filepath, "text", "back", f"{self.dex_entry}.txt")
+        back_png = os.path.join(filepath, "png", "back", f"{self.dex_entry}.png")
+        if os.path.isfile(back):
+            with open(back, "w", encoding="utf-8") as file:
+                file.write(self._get_ascii_string(back_png))
         else:
-            os.makedirs(filepath + text + "back/", exist_ok=True)
-            with open(filepath + text + f"back/{self.dex_entry}.txt", "w", encoding="utf-8") as file:
-                file.write(self._get_ascii_string(filepath + png + f"back/{self.dex_entry}.png"))
+            os.makedirs(os.path.join(filepath, "text", "back"), exist_ok=True)
+            with open(back, "w", encoding="utf-8") as file:
+                file.write(self._get_ascii_string(back_png))
 
     def _create_ascii_text_front(self, filepath):
-        text = "text/"
-        png = "png/"
-        if os.path.isfile(filepath + text + f"{self.dex_entry}.txt"):
-            with open(filepath + text + f"{self.dex_entry}.txt", "w", encoding="utf-8") as file:
-                file.write(self._get_ascii_string(filepath + png + f"{self.dex_entry}.png"))
+        front = os.path.join(filepath, "text", f"{self.dex_entry}.txt")
+        front_png = os.path.join(filepath, "png", f"{self.dex_entry}.png")
+        if os.path.isfile(front):
+            with open(front, "w", encoding="utf-8") as file:
+                file.write(self._get_ascii_string(front_png))
 
         else:
-            os.makedirs(filepath + text, exist_ok=True)
-            with open(filepath + text + f"{self.dex_entry}.txt", "w", encoding="utf-8") as file:
-                file.write(self._get_ascii_string(filepath + png + f"{self.dex_entry}.png"))
+            os.makedirs(front)
+            with open(front, "w", encoding="utf-8") as file:
+                file.write(self._get_ascii_string(front_png))
 
     def print_front(self):
         for f in self.ascii_lines_front:
