@@ -30,8 +30,8 @@ class Pythemon():
 
         self._create_ascii_text_back(monsters)
         self._create_ascii_text_front(monsters)
-        self.ascii_lines_back = make_ascii_of_monster_back(os.path.join(monsters, "text", "back", self.dex_entry, ".txt"))
-        self.ascii_lines_front = make_ascii_of_monster_front(os.path.join(monsters, "text", self.dex_entry, ".txt"))
+        self.ascii_lines_back = make_ascii_of_monster_back(os.path.join(monsters, "text", "back", str(self.dex_entry), ".txt"))
+        self.ascii_lines_front = make_ascii_of_monster_front(os.path.join(monsters, "text", str(self.dex_entry), ".txt"))
         self.height_back = len(self.ascii_lines_back)
         self.height_front = len(self.ascii_lines_front)
 
