@@ -8,6 +8,7 @@ import yaml
 
 root_of_project = os.getcwd()
 monsters = os.path.join(root_of_project, "monsters")
+# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 class Pythemon():
     def __init__(self, dex_entry):
