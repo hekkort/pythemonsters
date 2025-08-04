@@ -152,7 +152,7 @@ class Pythemon():
                 file.write(self._get_ascii_string(front_png))
 
         else:
-            os.makedirs(front)
+            os.makedirs(os.path.join(filepath, "text"), exist_ok=True)
             with open(front, "w", encoding="utf-8") as file:
                 file.write(self._get_ascii_string(front_png))
 
