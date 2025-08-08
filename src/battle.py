@@ -4,7 +4,7 @@ import random
 import make_yaml
 
 root_of_project = os.getcwd()
-monsters = os.path.join(root_of_project + "/monsters/")
+monsters = os.path.join(root_of_project, "monsters")
 
 # # attacker = pythemon.Pythemon(random.randint(1, 151))
 # # target = pythemon.Pythemon(random.randint(1, 151))
@@ -18,7 +18,7 @@ def calculate_effectiveness(attacker: Pythemon, target: Pythemon, action):
     target_type_id = []
     effectiveness = 1
 
-    with open(monsters + "data/yaml/types.yaml") as f:
+    with open(os.path.join(monsters, "data", "yaml", "types.yaml")) as f:
         types = yaml.safe_load(f)
     for t in types:
         if t["identifier"] == move_type.value:
@@ -27,7 +27,7 @@ def calculate_effectiveness(attacker: Pythemon, target: Pythemon, action):
         for t in types:
             if t["identifier"] == type["identifier"]:
                 target_type_id.append(t["id"])
-    with open(monsters + "data/yaml/type_efficacy.yaml") as f:
+    with open(os.path.join(monsters, "data", "yaml", "type_efficacy.yaml")) as f:
         type_efficacies = yaml.safe_load(f)
     for t_type_id in target_type_id:
         for t in type_efficacies:
