@@ -6,11 +6,6 @@ import make_yaml
 root_of_project = os.getcwd()
 monsters = os.path.join(root_of_project, "monsters")
 
-# # attacker = pythemon.Pythemon(random.randint(1, 151))
-# # target = pythemon.Pythemon(random.randint(1, 151))
-# attacker = pythemon.Pythemon
-# action = random.randint(1, 4)
-
 def calculate_effectiveness(attacker: Pythemon, target: Pythemon, action):
     move_type = attacker.get_move_type(action)
     target_type = target.type
@@ -38,41 +33,109 @@ def calculate_effectiveness(attacker: Pythemon, target: Pythemon, action):
                     effectiveness *= damage_factor
     return effectiveness
 
-# def calculate_battle_logic(you: Pythemon, enemy: Pythemon, action):
+def calculate_battle_logic(you: Pythemon, enemy: Pythemon, action):
 
-#     if you.stats["speed"] > enemy.stats["speed"]:
-#         damage_to_enemy = you.use_move(action)
-#         effectiveness_vs_enemy = calculate_effectiveness(you, enemy, action)
-#         damage_to_enemy *= effectiveness_vs_enemy
-#         enemy.health -= damage_to_enemy
-#         if you.health <= 0 or enemy.health <= 0:
-#             if enemy.health <= 0:
-#                 print("You won!")
-#                 return
-#             else:
-#                 print("The enemy won!")
-#                 return
+    if you.stats["speed"] >= enemy.stats["speed"]:
+        damage_to_enemy = you.use_move(action)
+        effectiveness_vs_enemy = calculate_effectiveness(you, enemy, action)
+        damage_to_enemy *= effectiveness_vs_enemy
+        enemy.health -= damage_to_enemy
+        if damage_to_enemy != 0:
+            if effectiveness_vs_enemy > 1:
+                print(f"Your {you.name} hit the enemy {enemy.name} super effective with {you.get_move_name(action)} for {damage_to_enemy}!")
+            elif effectiveness_vs_enemy < 1:
+                print(f"Your {you.name} hit the enemy {enemy.name} not very effective with {you.get_move_name(action)} for {damage_to_enemy}!")
+            elif effectiveness_vs_enemy == 0:
+                print(f"Your {you.name}'s {you.get_move_name(action)} doesn't affect {enemy.name}")
+            else:
+                print(f"Your {you.name} hit the enemy {enemy.name} with {you.get_move_name(action)} for {damage_to_enemy}!")
+        else:
+            print(f"Your {you.name} used {you.get_move_name(action)}, but missed!")
 
-#         enemy_action = random.randint(1, 4)
-#         damage_to_you = enemy.use_move(enemy_action)
-#         effectiveness_vs_you = calculate_effectiveness(enemy, you, enemy_action)
-#         damage_to_you *= effectiveness_vs_you
-#         you.health -= damage_to_you
+        if you.health <= 0 or enemy.health <= 0:
+            if enemy.health <= 0:
+                print("You won!")
+                return
+            else:
+                print("The enemy won!")
+                return
 
-#     elif enemy.stats["speed"] > you.stats["speed"]:
-#         enemy_action = random.randint(1, 4)
-#         damage_to_you = enemy.use_move(enemy_action)
-#         effectiveness_vs_you = calculate_effectiveness(enemy, you, enemy_action)
-#         damage_to_you *= effectiveness_vs_you
-#         you.health -= damage_to_you
+        enemy_action = random.randint(1, 4)
+        damage_to_you = enemy.use_move(enemy_action)
+        effectiveness_vs_you = calculate_effectiveness(enemy, you, enemy_action)
+        damage_to_you *= effectiveness_vs_you
+        you.health -= damage_to_you
 
-#         damage_to_enemy = you.use_move(action)
-#         effectiveness_vs_enemy = calculate_effectiveness(you, enemy, action)
-#         damage_to_enemy *= effectiveness_vs_enemy
-#         enemy.health -= damage_to_enemy
+        if damage_to_you != 0:
+            if effectiveness_vs_you > 1:
+                print(f"The enemy {enemy.name} hit your {you.name} super effective with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
+            elif effectiveness_vs_you < 1:
+                print(f"The enemy {enemy.name} hit your {you.name} not very effective with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
+            elif effectiveness_vs_you == 0:
+                print(f"Your {enemy.name}'s {enemy.get_move_name(action)} doesn't affect {you.name}")
+            else:
+                print(f"The enemy {enemy.name} hit your {you.name} with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
+        else:
+            print(f"The enemy {enemy.name} used {enemy.get_move_name(enemy_action)}, but missed!")
 
-    
-# effect = calculate_effectiveness(attacker, target, action)
-# print(attacker.get_move_name(action))
-# print(target.name)
-# print(effect)
+        if you.health <= 0 or enemy.health <= 0:
+            if enemy.health <= 0:
+                print("You won!")
+                return
+            else:
+                print("The enemy won!")
+                return
+        return
+
+    elif enemy.stats["speed"] > you.stats["speed"]:
+        enemy_action = random.randint(1, 4)
+        damage_to_you = enemy.use_move(enemy_action)
+        effectiveness_vs_you = calculate_effectiveness(enemy, you, enemy_action)
+        damage_to_you *= effectiveness_vs_you
+        you.health -= damage_to_you
+
+        if damage_to_you != 0:
+            if effectiveness_vs_you > 1:
+                print(f"The enemy {enemy.name} hit your {you.name} super effective with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
+            elif effectiveness_vs_you < 1:
+                print(f"The enemy {enemy.name} hit your {you.name} not very effective with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
+            elif effectiveness_vs_you == 0:
+                print(f"Your {enemy.name}'s {enemy.get_move_name(action)} doesn't affect {you.name}")
+            else:
+                print(f"The enemy {enemy.name} hit your {you.name} with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
+        else:
+            print(f"The enemy {enemy.name} used {enemy.get_move_name(enemy_action)}, but missed!")
+
+        if you.health <= 0 or enemy.health <= 0:
+            if enemy.health <= 0:
+                print("You won!")
+                return
+            else:
+                print("The enemy won!")
+                return
+
+        damage_to_enemy = you.use_move(action)
+        effectiveness_vs_enemy = calculate_effectiveness(you, enemy, action)
+        damage_to_enemy *= effectiveness_vs_enemy
+        enemy.health -= damage_to_enemy
+
+        if damage_to_enemy != 0:
+            if effectiveness_vs_enemy > 1:
+                print(f"Your {you.name} hit the enemy {enemy.name} super effective with {you.get_move_name(action)} for {damage_to_enemy}!")
+            elif effectiveness_vs_enemy < 1:
+                print(f"Your {you.name} hit the enemy {enemy.name} not very effective with {you.get_move_name(action)} for {damage_to_enemy}!")
+            elif effectiveness_vs_enemy == 0:
+                print(f"Your {you.name}'s {you.get_move_name(action)} doesn't affect {enemy.name}")
+            else:
+                print(f"Your {you.name} hit the enemy {enemy.name} with {you.get_move_name(action)} for {damage_to_enemy}!")
+        else:
+            print(f"Your {you.name} used {you.get_move_name(action)}, but missed!")
+
+        if you.health <= 0 or enemy.health <= 0:
+            if enemy.health <= 0:
+                print("You won!")
+                return
+            else:
+                print("The enemy won!")
+                return
+        return

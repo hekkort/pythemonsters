@@ -122,4 +122,4 @@ class Field():
         final_string += self.add_bottom_padding(spaces)
         final_string += self.add_bottom(spaces)
         final_string += self.add_moves(moves_list, dashes)
-        return final_string
+        return final_string, dashes
