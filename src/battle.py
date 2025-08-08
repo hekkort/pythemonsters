@@ -1,8 +1,5 @@
 from field import *
-import pythemon
 import random
-import make_yaml
-
 root_of_project = os.getcwd()
 monsters = os.path.join(root_of_project, "monsters")
 
