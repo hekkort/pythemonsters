@@ -33,7 +33,8 @@ def calculate_effectiveness(attacker: Pythemon, target: Pythemon, action):
 def calculate_battle_logic(you: Pythemon, enemy: Pythemon, action):
 
     if you.stats["speed"] >= enemy.stats["speed"]:
-        damage_to_enemy = you.use_move(action)
+        damage_to_enemy_float = you.use_move(action)
+        damage_to_enemy = int(damage_to_enemy_float)
         effectiveness_vs_enemy = calculate_effectiveness(you, enemy, action)
         damage_to_enemy *= effectiveness_vs_enemy
         enemy.health -= damage_to_enemy
@@ -58,7 +59,8 @@ def calculate_battle_logic(you: Pythemon, enemy: Pythemon, action):
                 return
 
         enemy_action = random.randint(1, 4)
-        damage_to_you = enemy.use_move(enemy_action)
+        damage_to_you_float = enemy.use_move(enemy_action)
+        damage_to_you = int(damage_to_you_float)
         effectiveness_vs_you = calculate_effectiveness(enemy, you, enemy_action)
         damage_to_you *= effectiveness_vs_you
         you.health -= damage_to_you
@@ -86,7 +88,8 @@ def calculate_battle_logic(you: Pythemon, enemy: Pythemon, action):
 
     elif enemy.stats["speed"] > you.stats["speed"]:
         enemy_action = random.randint(1, 4)
-        damage_to_you = enemy.use_move(enemy_action)
+        damage_to_you_float = enemy.use_move(enemy_action)
+        damage_to_you = int(damage_to_you_float)
         effectiveness_vs_you = calculate_effectiveness(enemy, you, enemy_action)
         damage_to_you *= effectiveness_vs_you
         you.health -= damage_to_you
@@ -111,7 +114,8 @@ def calculate_battle_logic(you: Pythemon, enemy: Pythemon, action):
                 print("The enemy won!")
                 return
 
-        damage_to_enemy = you.use_move(action)
+        damage_to_enemy_float = you.use_move(action)
+        damage_to_enemy = int(damage_to_enemy_float)
         effectiveness_vs_enemy = calculate_effectiveness(you, enemy, action)
         damage_to_enemy *= effectiveness_vs_enemy
         enemy.health -= damage_to_enemy
