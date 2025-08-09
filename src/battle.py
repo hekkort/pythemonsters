@@ -8,10 +8,12 @@ def calculate_effectiveness(attacker: Pythemon, target: Pythemon, action):
     target_type = target.type
     move_type_id = ""
     target_type_id = []
-    effectiveness = 1
+    effectiveness = 1  
 
-    with open(os.path.join(monsters, "data", "yaml", "types.yaml")) as f:
-        types = yaml.safe_load(f)
+    with open(os.path.join(monsters, "data", "csv", "types.csv"), mode="r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            types = list(reader)
+
     for t in types:
         if t["identifier"] == move_type.value:
             move_type_id = t["id"]
@@ -19,8 +21,10 @@ def calculate_effectiveness(attacker: Pythemon, target: Pythemon, action):
         for t in types:
             if t["identifier"] == type["identifier"]:
                 target_type_id.append(t["id"])
-    with open(os.path.join(monsters, "data", "yaml", "type_efficacy.yaml")) as f:
-        type_efficacies = yaml.safe_load(f)
+
+    with open(os.path.join(monsters, "data", "csv", "type_efficacy.csv"), mode="r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        type_efficacies = list(reader)
     for t_type_id in target_type_id:
         for t in type_efficacies:
             if t["target_type_id"] == t_type_id:
@@ -73,10 +77,10 @@ def dead(you: Pythemon, enemy: Pythemon):
     if you.health <= 0 or enemy.health <= 0:
         if enemy.health <= 0:
             print("You won!")
-            return
+            return True
         else:
             print("The enemy won!")
-            return
+            return True
 
 def calculate_battle_logic(you: Pythemon, enemy: Pythemon, action):
     
@@ -84,15 +88,21 @@ def calculate_battle_logic(you: Pythemon, enemy: Pythemon, action):
     if you.stats["speed"] >= enemy.stats["speed"]:
         damage_to_enemy_pythemon(you, enemy, action)
         dead(you, enemy)
+        if you.health <= 0 or enemy.health <= 0:
+            return
 
         damage_to_your_pythemon(you, enemy, action)
         dead(you, enemy)
-        return
+        if you.health <= 0 or enemy.health <= 0:
+            return
 
     elif enemy.stats["speed"] > you.stats["speed"]:
         damage_to_your_pythemon(you, enemy, action)
         dead(you, enemy)
+        if you.health <= 0 or enemy.health <= 0:
+            return
 
         damage_to_enemy_pythemon(you, enemy, action)
         dead(you, enemy)
-        return
+        if you.health <= 0 or enemy.health <= 0:
+            return

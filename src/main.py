@@ -1,12 +1,10 @@
 from field import *
 import pythemon
 import random
-import make_yaml
 import battle
 
 
 def main():
-    make_yaml.make_yaml_from_csv()
 
 
     while True:

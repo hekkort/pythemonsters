@@ -13,5 +13,3 @@ wheels/
 .vscode
 monsters/text/
 monsters/text/back/
-monsters/data/yaml/*.yaml
-!monsters/data/yaml/

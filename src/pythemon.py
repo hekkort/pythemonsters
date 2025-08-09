@@ -4,7 +4,6 @@ import random
 import ascii_magic
 import os
 import re
-import yaml
 import csv
 
 root_of_project = os.getcwd()
@@ -13,9 +12,10 @@ monsters = os.path.join(root_of_project, "monsters")
 
 class Pythemon():
     def __init__(self, dex_entry):
+        with open(os.path.join(monsters, "data", "csv", "pokemon_species.csv"), mode="r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            monster_species = list(reader)
 
-        with open(os.path.join(monsters, "data", "yaml", "pokemon_species.yaml")) as f:
-            monster_species = yaml.safe_load(f)
         monster_species = monster_species[dex_entry - 1]
         
         self.dex_entry = int(monster_species["id"])
@@ -64,18 +64,21 @@ class Pythemon():
             random_move = random.randint(1, len(all_moves_set))
             move = all_moves_set[random_move - 1]
             if move["power"] != "" and move["accuracy"] != "":
-                move_set.append(move)
+                if move not in move_set:
+                    move_set.append(move)
         return move_set
 
     def _set_types(self):
-        with open(os.path.join(monsters, "data", "yaml", "pokemon_types.yaml")) as f:
-            monster_types = yaml.safe_load(f)
+        with open(os.path.join(monsters, "data", "csv", "pokemon_types.csv"), mode="r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            monster_types = list(reader)
         type_list = []
         for m in monster_types:
             if m["pokemon_id"] == f'{self.dex_entry}':
                 type_list.append(m)
-        with open(os.path.join(monsters, "data", "yaml", "types.yaml")) as f:
-            types = yaml.safe_load(f)
+        with open(os.path.join(monsters, "data", "csv", "types.csv"), mode="r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            types = list(reader)
         for t in type_list:
             for item in types:
                 if t["type_id"] == item["id"]:
@@ -111,10 +114,13 @@ class Pythemon():
         return ev
 
     def _set_base_stats(self):
-        with open(os.path.join(monsters, "data", "yaml", "stats.yaml")) as f:
-            stats = yaml.safe_load(f)
-        with open(os.path.join(monsters, "data", "yaml", "pokemon_stats.yaml")) as f:
-            pokemon_stats = yaml.safe_load(f)
+        with open(os.path.join(monsters, "data", "csv", "stats.csv"), mode="r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            stats = list(reader)
+        with open(os.path.join(monsters, "data", "csv", "pokemon_stats.csv"), mode="r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            pokemon_stats = list(reader)
+
         pokemon_stat_list = []
         for p in pokemon_stats:
             if p["pokemon_id"] == str(self.dex_entry):
