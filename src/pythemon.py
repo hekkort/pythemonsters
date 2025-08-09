@@ -48,7 +48,7 @@ class Pythemon():
         with open(os.path.join(monsters, "data", "csv", "moves.csv"), mode="r", encoding="utf-8") as f:
             reader = csv.DictReader(f)
             moves = list(reader)
-        compare_moves = []
+        all_moves_set = []
         with open(os.path.join(monsters, "data", "csv", "types.csv"), mode="r", encoding="utf-8") as f:
             reader = csv.DictReader(f)
             types = list(reader)
@@ -58,11 +58,11 @@ class Pythemon():
                     for t in types:
                         if t["id"] == item["type_id"]:
                             item.update({"type": t["identifier"]})
-                    compare_moves.append(item)
+                    all_moves_set.append(item)
         move_set = []
         while len(move_set) < 4:
-            random_move = random.randint(1, len(compare_moves))
-            move = compare_moves[random_move - 1]
+            random_move = random.randint(1, len(all_moves_set))
+            move = all_moves_set[random_move - 1]
             if move["power"] != "" and move["accuracy"] != "":
                 move_set.append(move)
         return move_set
