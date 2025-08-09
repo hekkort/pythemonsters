@@ -28,6 +28,7 @@ def main():
 
             while not action.isdigit() or not (1 <= int(action) <= 4):
                 action = input("Choose a valid integer, one through four: ")
+                print("+" + dashes + "-" + dashes + "+")
 
             battle.calculate_battle_logic(your_pythemon, enemy_pythemon, action)
             if your_pythemon.health <= 0 or enemy_pythemon.health <= 0:
