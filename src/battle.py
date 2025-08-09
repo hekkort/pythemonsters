@@ -69,67 +69,30 @@ def damage_to_enemy_pythemon(you: Pythemon, enemy: Pythemon, action):
     else:
         print(f"Your {you.name} used {you.get_move_name(action)}, but missed!")
 
+def dead(you: Pythemon, enemy: Pythemon):
+    if you.health <= 0 or enemy.health <= 0:
+        if enemy.health <= 0:
+            print("You won!")
+            return
+        else:
+            print("The enemy won!")
+            return
+
 def calculate_battle_logic(you: Pythemon, enemy: Pythemon, action):
     
 
     if you.stats["speed"] >= enemy.stats["speed"]:
         damage_to_enemy_pythemon(you, enemy, action)
+        dead(you, enemy)
 
-        if you.health <= 0 or enemy.health <= 0:
-            if enemy.health <= 0:
-                print("You won!")
-                return
-            else:
-                print("The enemy won!")
-                return
         damage_to_your_pythemon(you, enemy, action)
-
-        if you.health <= 0 or enemy.health <= 0:
-            if enemy.health <= 0:
-                print("You won!")
-                return
-            else:
-                print("The enemy won!")
-                return
+        dead(you, enemy)
         return
 
     elif enemy.stats["speed"] > you.stats["speed"]:
         damage_to_your_pythemon(you, enemy, action)
-        
-        if you.health <= 0 or enemy.health <= 0:
-            if enemy.health <= 0:
-                print("You won!")
-                return
-            else:
-                print("The enemy won!")
-                return
+        dead(you, enemy)
+
         damage_to_enemy_pythemon(you, enemy, action)
-
-        if you.health <= 0 or enemy.health <= 0:
-            if enemy.health <= 0:
-                print("You won!")
-                return
-            else:
-                print("The enemy won!")
-                return
+        dead(you, enemy)
         return
-    
-def damage_to_your_pythemon(you: Pythemon, enemy: Pythemon, action):
-    enemy_action = random.randint(1, 4)
-    damage_to_you_float = enemy.use_move(enemy_action)
-    damage_to_you = int(damage_to_you_float)
-    effectiveness_vs_you = calculate_effectiveness(enemy, you, enemy_action)
-    damage_to_you *= effectiveness_vs_you
-    you.health -= damage_to_you
-
-    if damage_to_you != 0:
-        if effectiveness_vs_you > 1:
-            print(f"The enemy {enemy.name} hit your {you.name} super effective with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
-        elif effectiveness_vs_you < 1:
-            print(f"The enemy {enemy.name} hit your {you.name} not very effective with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
-        elif effectiveness_vs_you == 0:
-            print(f"Your {enemy.name}'s {enemy.get_move_name(action)} doesn't affect {you.name}")
-        else:
-            print(f"The enemy {enemy.name} hit your {you.name} with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
-    else:
-        print(f"The enemy {enemy.name} used {enemy.get_move_name(enemy_action)}, but missed!")

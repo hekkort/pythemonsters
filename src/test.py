@@ -1,3 +1,2 @@
 from pythemon import *
-bulba = Pythemon(1)
-print(bulba._set_types())
+print(Pythemon(1)._set_movess())

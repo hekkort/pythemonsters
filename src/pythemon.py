@@ -5,6 +5,7 @@ import ascii_magic
 import os
 import re
 import yaml
+import csv
 
 root_of_project = os.getcwd()
 monsters = os.path.join(root_of_project, "monsters")
@@ -34,20 +35,34 @@ class Pythemon():
         self.ascii_lines_front = make_ascii_of_monster_front(os.path.join(monsters, "text", f"{self.dex_entry}.txt"))
         self.height_back = len(self.ascii_lines_back)
         self.height_front = len(self.ascii_lines_front)
-
+    
     def _set_moves(self):
-        with open(os.path.join(monsters, "data", "yaml", "moves.yaml")) as f:
-            moves = yaml.safe_load(f)
-        moves_of_type = []
-        for m in moves:
-            for t in self.type:
-                if m["type_id"] == t["type_id"]:
-                    m.update({"type": t["identifier"]})
-                    moves_of_type.append(m)
+        with open(os.path.join(monsters, "data", "csv", "pokemon_moves.csv"), mode="r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            pokemon_moves = list(reader)
+        moves_of_pythemon = []
+        for d in pokemon_moves:
+            if d["pokemon_id"] == str(self.dex_entry):
+                moves_of_pythemon.append(d)
+
+        with open(os.path.join(monsters, "data", "csv", "moves.csv"), mode="r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            moves = list(reader)
+        compare_moves = []
+        with open(os.path.join(monsters, "data", "csv", "types.csv"), mode="r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            types = list(reader)
+        for m in moves_of_pythemon:
+            for item in moves:
+                if m["move_id"] == item["id"]:
+                    for t in types:
+                        if t["id"] == item["type_id"]:
+                            item.update({"type": t["identifier"]})
+                    compare_moves.append(item)
         move_set = []
         while len(move_set) < 4:
-            random_move = random.randint(1, len(moves_of_type))
-            move = moves_of_type[random_move - 1]
+            random_move = random.randint(1, len(compare_moves))
+            move = compare_moves[random_move - 1]
             if move["power"] != "" and move["accuracy"] != "":
                 move_set.append(move)
         return move_set
