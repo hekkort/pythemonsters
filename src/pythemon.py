@@ -69,7 +69,6 @@ class Pythemon():
                         if d["id"] == item["damage_class_id"]:
                             item.update({"damage_class": d["identifier"]})
                     all_moves_set.append(item)
-        
         move_set = []
         while len(move_set) < 4:
             random_move = random.randint(1, len(all_moves_set))
@@ -98,18 +97,19 @@ class Pythemon():
     
     def _set_hp_at_level(self):
         hp = ((2 * int(self.base_stats[0]["base_stat"]) + self.iv[0] + (self.ev[0] // 4)) * self.level // 100) + self.level + 10
-        print(f"For {self.name} adding: {hp} for hp")
+        # print(f"For {self.name} adding: {hp} for hp")
         return hp
     
     def _set_max_stats(self):
         stats = {}
         stats.update({"hp": self.health})
+        print(f"Adding {self.name}")
         
         for i in range(5):
             identifier = self.base_stats[i + 1]["identifier"]
             stat = (((2 * int(self.base_stats[i + 1]['base_stat']) + self.iv[i + 1] + (self.ev[i + 1] // 4)) * self.level) // 100) + 5
             stats.update({identifier: stat})
-            print(f"For {self.name} adding: {stat} for {identifier}")
+            # print(f"For {self.name} adding: {stat} for {identifier}")
         return stats
 
     def _set_iv(self):
