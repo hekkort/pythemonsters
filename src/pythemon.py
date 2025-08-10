@@ -71,6 +71,7 @@ class Pythemon():
                     all_moves_set.append(item)
         move_set = []
         while len(move_set) < 4:
+            
             random_move = random.randint(1, len(all_moves_set))
             move = all_moves_set[random_move - 1]
             if move["power"] != "" and move["accuracy"] != "":

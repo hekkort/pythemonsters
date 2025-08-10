@@ -3,6 +3,8 @@ import pythemon
 import random
 import battle
 
+chosen_pythemon = 0
+choice = 0
 
 def main():
     # your_team = []
@@ -47,11 +49,10 @@ def main():
 
         print(your_team_string)
         print(enemy_team_string)
-
-        field = Field(your_team[0], enemy_team[0])
+        field = Field(your_team[chosen_pythemon], enemy_team[choice])
         drawn_field, dashes = field.draw_field()
         print(drawn_field)
-        while True:
+        while all(y.health > 0 for y in your_team) and all(e.health > 0 for e in enemy_team):
             
             action = input("What kind of attack do you want to use? Type just the number: ")
 
@@ -61,20 +62,96 @@ def main():
                 action = input("Choose a valid integer, one through four: ")
                 print("+" + dashes + "-" + dashes + "+")
 
-            text_a, text_b = battle.calculate_battle_logic(your_team[0], enemy_team[0], action)
+            text_a, text_b = battle.calculate_battle_logic(your_team[chosen_pythemon], enemy_team[choice], action)
             drawn_field, dashes = field.draw_field()
-            if your_team[0].health <= 0 or enemy_team[0].health <= 0:
-                print(drawn_field)
-                print(text_a)
-                print(text_b)
-                print("+" + dashes + "-" + dashes + "+")
-                break
+
+            you_dead(your_team, enemy_team, action, chosen_pythemon, choice, drawn_field, dashes)
+
+            enemy_dead(your_team, enemy_team, action, chosen_pythemon, choice, drawn_field, dashes)
+
+
             print(drawn_field)
             print(text_a)
             print(text_b)
             print("+" + dashes + "-" + dashes + "+")
 
         break
+
+def you_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], action, chosen_pythemon, choice, drawn_field, dashes):
+        if your_team[chosen_pythemon].health <= 0:
+            print(drawn_field)
+            print(text_a)
+            print(text_b)
+            print("+" + dashes + "-" + dashes + "+")
+            name_of_alive = ""
+            for element in your_team:
+                if element.health > 0:
+                    name_of_alive += f"{your_team.index(element)}. {element.name}, "
+
+            chosen_pythemon = input("Choose a Pythemon: " + name_of_alive.strip()[:-1] + ": ")
+            field = Field(your_team[int(chosen_pythemon)], enemy_team[choice])
+            drawn_field, dashes = field.draw_field()
+            print(drawn_field)
+            action = input("What kind of attack do you want to use? Type just the number: ")
+
+            drawn_field, dashes = field.draw_field()
+
+            while not action.isdigit() or not (1 <= int(action) <= 4):
+                action = input("Choose a valid integer, one through four: ")
+                print("+" + dashes + "-" + dashes + "+")
+            text_a, text_b = battle.calculate_battle_logic(your_team[int(chosen_pythemon)], enemy_team[choice], action)
+            drawn_field, dashes = field.draw_field()
+            print(drawn_field)
+            print(text_a)
+            print(text_b)
+            print("+" + dashes + "-" + dashes + "+")
+            if your_team[chosen_pythemon].health <= 0:
+                you_dead(your_team, enemy_team, action, chosen_pythemon, choice, drawn_field, dashes)
+            elif enemy_team[choice].health <= 0:
+                enemy_dead(your_team, enemy_team, action, chosen_pythemon, choice, drawn_field, dashes)
+            print(drawn_field)
+            print(text_a)
+            print(text_b)
+            print("+" + dashes + "-" + dashes + "+")
+        
+
+def enemy_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], action, chosen_pythemon, choice, drawn_field, dashes):
+        if enemy_team[choice].health <= 0:
+            print(drawn_field)
+            print(text_a)
+            print(text_b)
+            print("+" + dashes + "-" + dashes + "+")
+            name_of_alive = ""
+            count = 1
+            for element in enemy_team:
+                if element.health > 0:
+                    name_of_alive += f"{enemy_team.index(element)}. {element.name}, "
+                    count += 1
+            choice = random.randint(1, count)
+            field = Field(your_team[chosen_pythemon], enemy_team[choice])
+            drawn_field, dashes = field.draw_field()
+            print(drawn_field)
+            action = input("What kind of attack do you want to use? Type just the number: ")
+
+            drawn_field, dashes = field.draw_field()
+
+            while not action.isdigit() or not (1 <= int(action) <= 4):
+                action = input("Choose a valid integer, one through four: ")
+                print("+" + dashes + "-" + dashes + "+")
+            text_a, text_b = battle.calculate_battle_logic(your_team[chosen_pythemon], enemy_team[choice], action)
+            drawn_field, dashes = field.draw_field()
+            print(drawn_field)
+            print(text_a)
+            print(text_b)
+            print("+" + dashes + "-" + dashes + "+")
+            if your_team[chosen_pythemon].health <= 0:
+                you_dead(your_team, enemy_team, action, chosen_pythemon, choice, drawn_field, dashes)
+            elif enemy_team[choice].health <= 0:
+                enemy_dead(your_team, enemy_team, action, chosen_pythemon, choice, drawn_field, dashes)
+            print(drawn_field)
+            print(text_a)
+            print(text_b)
+            print("+" + dashes + "-" + dashes + "+")
 
 if __name__ == "__main__":
     main()

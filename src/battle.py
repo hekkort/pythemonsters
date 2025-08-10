@@ -80,7 +80,7 @@ def damage_to_your_pythemon(you: Pythemon, enemy: Pythemon):
         else:
             return f"The enemy {enemy.name} hit your {you.name} with {enemy.get_move_name(enemy_action)} for {damage_to_you}!"
     elif effectiveness_vs_you == 0:
-        return f"The enemy's {enemy.name} {enemy.get_move_name(enemy_action)} doesn't affect {you.name}"
+        return f"The enemy's {enemy.name} {enemy.get_move_name(enemy_action)} doesn't affect {you.name}!"
     else:
         return f"The enemy {enemy.name} used {enemy.get_move_name(enemy_action)}, but missed!"
     
@@ -106,16 +106,16 @@ def damage_to_enemy_pythemon(you: Pythemon, enemy: Pythemon, action):
         else:
             return f"Your {you.name} hit the enemy's {enemy.name} with {you.get_move_name(action)} for {damage_to_enemy}!"
     elif effectiveness_vs_enemy == 0:
-        return f"Your {you.name}'s {you.get_move_name(action)} doesn't affect {you.name}"
+        return f"Your {you.name}'s {you.get_move_name(action)} doesn't affect {enemy.name}!"
     else:
         return f"Your {you.name} used {you.get_move_name(action)}, but missed!"
 
 def dead(you: Pythemon, enemy: Pythemon):
     if you.health <= 0 or enemy.health <= 0:
         if enemy.health <= 0:
-            return "You won!"
+            return f"The enemy {enemy.name} died!"
         else:
-            return "The enemy won!"
+            return f"Your {you.name} died!"
 
 def calculate_battle_logic(you: Pythemon, enemy: Pythemon, action):
 
