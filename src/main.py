@@ -5,7 +5,19 @@ import battle
 
 
 def main():
+    # your_team = []
+    # enemy_team = []
 
+    # for i in range(6):
+    #     your_team.append(pythemon.Pythemon(random.randint(1, 151)))
+    #     enemy_team.append(pythemon.Pythemon(random.randint(1, 151)))
+    
+    # print("My team:")
+    # for i in range(6):
+    #     print(your_team[i])
+    # print("Enemy team:")
+    # for i in range(6):
+    #     print(enemy_team[i])
 
     while True:
 

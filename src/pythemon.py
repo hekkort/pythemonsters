@@ -35,6 +35,9 @@ class Pythemon():
         self.ascii_lines_front = make_ascii_of_monster_front(os.path.join(monsters, "text", f"{self.dex_entry}.txt"))
         self.height_back = len(self.ascii_lines_back)
         self.height_front = len(self.ascii_lines_front)
+
+    def __str__(self):
+        return self.name
     
     def _set_moves(self):
         with open(os.path.join(monsters, "data", "csv", "pokemon_moves.csv"), mode="r", encoding="utf-8") as f:
@@ -52,13 +55,21 @@ class Pythemon():
         with open(os.path.join(monsters, "data", "csv", "types.csv"), mode="r", encoding="utf-8") as f:
             reader = csv.DictReader(f)
             types = list(reader)
+        with open(os.path.join(monsters, "data", "csv", "move_damage_classes.csv"), mode="r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            damage_class = list(reader)
+
         for m in moves_of_pythemon:
             for item in moves:
                 if m["move_id"] == item["id"]:
                     for t in types:
                         if t["id"] == item["type_id"]:
                             item.update({"type": t["identifier"]})
+                    for d in damage_class:
+                        if d["id"] == item["damage_class_id"]:
+                            item.update({"damage_class": d["identifier"]})
                     all_moves_set.append(item)
+        
         move_set = []
         while len(move_set) < 4:
             random_move = random.randint(1, len(all_moves_set))
@@ -129,10 +140,10 @@ class Pythemon():
             pokemon_stat_list[i].update({"identifier": stats[i]["identifier"]})
         return pokemon_stat_list
 
-    def _get_move_power(self, action):
+    def get_move_power(self, action):
         return int(self.moves[int(action) - 1]["power"])
     
-    def _get_move_accuracy(self, action):
+    def get_move_accuracy(self, action):
         return int(self.moves[int(action) - 1]["accuracy"])
     
     def get_move_type(self, action):
@@ -140,14 +151,6 @@ class Pythemon():
 
     def get_move_name(self, action):
         return self.moves[int(action) - 1]["identifier"].title()
-    
-    def use_move(self, action):
-        if self._get_move_accuracy(action) == 1:
-            return self._get_move_power(action)
-        miss = random.random()
-        if miss > self._get_move_accuracy(action):
-            return 0
-        return self._get_move_power(action)
     
     def _get_ascii_string(self, path):
         output = ascii_magic.from_image(path)
