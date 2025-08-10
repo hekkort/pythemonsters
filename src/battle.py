@@ -67,22 +67,22 @@ def damage_to_your_pythemon(you: Pythemon, enemy: Pythemon):
 
     if damage_to_you != 0 and crit:
         if effectiveness_vs_you > 1:
-            print(f"The enemy {enemy.name} hit your {you.name} super effective and critically with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
+            return f"The enemy {enemy.name} hit your {you.name} super effective and critically with {enemy.get_move_name(enemy_action)} for {damage_to_you}!"
         elif effectiveness_vs_you < 1:
-            print(f"The enemy {enemy.name} hit your {you.name} not very effective and critically with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
+            return f"The enemy {enemy.name} hit your {you.name} not very effective and critically with {enemy.get_move_name(enemy_action)} for {damage_to_you}!"
         else:
-            print(f"The enemy {enemy.name} hit your {you.name} critically with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
+            return f"The enemy {enemy.name} hit your {you.name} critically with {enemy.get_move_name(enemy_action)} for {damage_to_you}!"
     elif damage_to_you != 0 and not crit:
         if effectiveness_vs_you > 1:
-            print(f"The enemy {enemy.name} hit your {you.name} super effective with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
+            return f"The enemy {enemy.name} hit your {you.name} super effective with {enemy.get_move_name(enemy_action)} for {damage_to_you}!"
         elif effectiveness_vs_you < 1:
-            print(f"The enemy {enemy.name} hit your {you.name} not very effective with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
+            return f"The enemy {enemy.name} hit your {you.name} not very effective with {enemy.get_move_name(enemy_action)} for {damage_to_you}!"
         else:
-            print(f"The enemy {enemy.name} hit your {you.name} with {enemy.get_move_name(enemy_action)} for {damage_to_you}!")
+            return f"The enemy {enemy.name} hit your {you.name} with {enemy.get_move_name(enemy_action)} for {damage_to_you}!"
     elif effectiveness_vs_you == 0:
-        print(f"The enemy's {enemy.name} {enemy.get_move_name(enemy_action)} doesn't affect {you.name}")
+        return f"The enemy's {enemy.name} {enemy.get_move_name(enemy_action)} doesn't affect {you.name}"
     else:
-        print(f"The enemy {enemy.name} used {enemy.get_move_name(enemy_action)}, but missed!")
+        return f"The enemy {enemy.name} used {enemy.get_move_name(enemy_action)}, but missed!"
     
 
 def damage_to_enemy_pythemon(you: Pythemon, enemy: Pythemon, action):
@@ -93,53 +93,52 @@ def damage_to_enemy_pythemon(you: Pythemon, enemy: Pythemon, action):
 
     if damage_to_enemy != 0 and crit:
         if effectiveness_vs_enemy > 1:
-            print(f"Your {you.name} hit the enemy's {enemy.name} super effective and critically with {you.get_move_name(action)} for {damage_to_enemy}!")
+            return f"Your {you.name} hit the enemy's {enemy.name} super effective and critically with {you.get_move_name(action)} for {damage_to_enemy}!"
         elif effectiveness_vs_enemy < 1:
-            print(f"Your {you.name} hit the enemy's {enemy.name} not very effective and critically with {you.get_move_name(action)} for {damage_to_enemy}!")
+            return f"Your {you.name} hit the enemy's {enemy.name} not very effective and critically with {you.get_move_name(action)} for {damage_to_enemy}!"
         else:
-            print(f"Your {you.name} hit the enemy's {enemy.name} critically with {you.get_move_name(action)} for {damage_to_enemy}!")
+            return f"Your {you.name} hit the enemy's {enemy.name} critically with {you.get_move_name(action)} for {damage_to_enemy}!"
     elif damage_to_enemy != 0 and not crit:
         if effectiveness_vs_enemy > 1:
-            print(f"Your {you.name} hit the enemy's {enemy.name} super effective with {you.get_move_name(action)} for {damage_to_enemy}!")
+            return f"Your {you.name} hit the enemy's {enemy.name} super effective with {you.get_move_name(action)} for {damage_to_enemy}!"
         elif effectiveness_vs_enemy < 1:
-            print(f"Your {you.name} hit the enemy's {enemy.name} not very effective with {you.get_move_name(action)} for {damage_to_enemy}!")
+            return f"Your {you.name} hit the enemy's {enemy.name} not very effective with {you.get_move_name(action)} for {damage_to_enemy}!"
         else:
-            print(f"Your {you.name} hit the enemy's {enemy.name} with {you.get_move_name(action)} for {damage_to_enemy}!")
+            return f"Your {you.name} hit the enemy's {enemy.name} with {you.get_move_name(action)} for {damage_to_enemy}!"
     elif effectiveness_vs_enemy == 0:
-        print(f"Your {you.name}'s {you.get_move_name(action)} doesn't affect {you.name}")
+        return f"Your {you.name}'s {you.get_move_name(action)} doesn't affect {you.name}"
     else:
-        print(f"Your {you.name} used {you.get_move_name(action)}, but missed!")
+        return f"Your {you.name} used {you.get_move_name(action)}, but missed!"
 
 def dead(you: Pythemon, enemy: Pythemon):
     if you.health <= 0 or enemy.health <= 0:
         if enemy.health <= 0:
-            print("You won!")
-            return True
+            return "You won!"
         else:
-            print("The enemy won!")
-            return True
+            return "The enemy won!"
 
 def calculate_battle_logic(you: Pythemon, enemy: Pythemon, action):
-    
 
     if you.stats["speed"] >= enemy.stats["speed"]:
-        damage_to_enemy_pythemon(you, enemy, action)
-        dead(you, enemy)
+        x = damage_to_enemy_pythemon(you, enemy, action)
+        y = dead(you, enemy)
         if you.health <= 0 or enemy.health <= 0:
-            return
+            return x, y
 
-        damage_to_your_pythemon(you, enemy)
-        dead(you, enemy)
+        a = damage_to_your_pythemon(you, enemy)
+        b = dead(you, enemy)
         if you.health <= 0 or enemy.health <= 0:
-            return
+            return a, b
+        return x, a
 
     elif enemy.stats["speed"] > you.stats["speed"]:
-        damage_to_your_pythemon(you, enemy)
-        dead(you, enemy)
+        x = damage_to_your_pythemon(you, enemy)
+        y = dead(you, enemy)
         if you.health <= 0 or enemy.health <= 0:
-            return
+            return y, ""
 
-        damage_to_enemy_pythemon(you, enemy, action)
-        dead(you, enemy)
+        a = damage_to_enemy_pythemon(you, enemy, action)
+        b = dead(you, enemy)
         if you.health <= 0 or enemy.health <= 0:
-            return
+            return b, ""
+        return x, a

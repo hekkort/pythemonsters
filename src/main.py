@@ -34,17 +34,23 @@ def main():
             action = input("What kind of attack do you want to use? Type just the number: ")
 
             drawn_field, dashes = field.draw_field()
-            print("+" + dashes + "-" + dashes + "+")
 
             while not action.isdigit() or not (1 <= int(action) <= 4):
                 action = input("Choose a valid integer, one through four: ")
                 print("+" + dashes + "-" + dashes + "+")
 
-            battle.calculate_battle_logic(your_pythemon, enemy_pythemon, action)
-            if your_pythemon.health <= 0 or enemy_pythemon.health <= 0:
-                break
+            text_a, text_b = battle.calculate_battle_logic(your_pythemon, enemy_pythemon, action)
             drawn_field, dashes = field.draw_field()
+            if your_pythemon.health <= 0 or enemy_pythemon.health <= 0:
+                print(drawn_field)
+                print(text_a)
+                print(text_b)
+                print("+" + dashes + "-" + dashes + "+")
+                break
             print(drawn_field)
+            print(text_a)
+            print(text_b)
+            print("+" + dashes + "-" + dashes + "+")
 
         break
 
