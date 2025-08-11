@@ -123,22 +123,22 @@ def calculate_battle_logic(you: Pythemon, enemy: Pythemon, action):
         x = damage_to_enemy_pythemon(you, enemy, action)
         y = dead(you, enemy)
         if you.health <= 0 or enemy.health <= 0:
-            return x, y
+            return x, y, ""
 
         a = damage_to_your_pythemon(you, enemy)
         b = dead(you, enemy)
         if you.health <= 0 or enemy.health <= 0:
-            return a, b
-        return x, a
+            return x, a, b
+        return x, a, ""
 
     elif enemy.stats["speed"] > you.stats["speed"]:
         x = damage_to_your_pythemon(you, enemy)
         y = dead(you, enemy)
         if you.health <= 0 or enemy.health <= 0:
-            return x, y
+            return x, y, ""
 
         a = damage_to_enemy_pythemon(you, enemy, action)
         b = dead(you, enemy)
         if you.health <= 0 or enemy.health <= 0:
-            return a, b
-        return x, a
+            return x, a, b
+        return x, a, ""

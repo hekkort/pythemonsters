@@ -8,6 +8,7 @@ def main():
 
     chosen_pythemon = 0
     choice = 0
+    all_choices = []
     # your_team = []
     # enemy_team = []
 
@@ -50,36 +51,40 @@ def main():
 
         print(your_team_string)
         print(enemy_team_string)
+        field = Field(your_team[chosen_pythemon], enemy_team[choice])
+        drawn_field, dashes = field.draw_field()
+        print(drawn_field)
         
         while any(y.health > 0 for y in your_team) and any(e.health > 0 for e in enemy_team):
-            field = Field(your_team[chosen_pythemon], enemy_team[choice])
-            drawn_field, dashes = field.draw_field()
-            print(drawn_field)
+
             action = input("What kind of attack do you want to use? Type just the number: ")
 
             while not action.isdigit() or not (1 <= int(action) <= 4):
                 action = input("Choose a valid integer, one through four: ")
                 print("+" + dashes + "-" + dashes + "+")
 
-            text_a, text_b = battle.calculate_battle_logic(your_team[chosen_pythemon], enemy_team[choice], action)
+            text_a, text_x, text_b = battle.calculate_battle_logic(your_team[chosen_pythemon], enemy_team[choice], action)
+            field = Field(your_team[chosen_pythemon], enemy_team[choice])
             drawn_field, dashes = field.draw_field()
 
             if your_team[chosen_pythemon].health <= 0:
-                chosen_pythemon = you_dead(your_team, chosen_pythemon, drawn_field, dashes, text_a, text_b)
+                chosen_pythemon = you_dead(your_team, chosen_pythemon, drawn_field, dashes, text_a, text_x, text_b)
             elif enemy_team[choice].health <= 0:
-                choice = enemy_dead(enemy_team, choice, drawn_field, dashes, text_a, text_b)
+                choice, all_choices = enemy_dead(your_team, enemy_team, chosen_pythemon, choice, drawn_field, dashes, text_a, text_x, text_b, all_choices)
             else:
                 print(drawn_field)
                 print(text_a)
+                print(text_x)
                 print(text_b)
                 print("+" + dashes + "-" + dashes + "+")
         break
 
 
-def you_dead(your_team: list[Pythemon], chosen_pythemon, drawn_field, dashes, text_a, text_b):
+def you_dead(your_team: list[Pythemon], chosen_pythemon, drawn_field, dashes, text_a, text_x, text_b):
         if your_team[chosen_pythemon].health <= 0:
             print(drawn_field)
             print(text_a)
+            print(text_x)
             print(text_b)
             print("+" + dashes + "-" + dashes + "+")
             name_of_alive = ""
@@ -116,21 +121,25 @@ def you_dead(your_team: list[Pythemon], chosen_pythemon, drawn_field, dashes, te
             # print("+" + dashes + "-" + dashes + "+")
         
 
-def enemy_dead(enemy_team: list[Pythemon], choice, drawn_field, dashes, text_a, text_b):
+def enemy_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], chosen_pythemon, choice, drawn_field, dashes, text_a, text_x, text_b, all_choices: list):
         if enemy_team[choice].health <= 0:
             print(drawn_field)
             print(text_a)
+            print(text_x)
             print(text_b)
             print("+" + dashes + "-" + dashes + "+")
             name_of_alive = ""
-            count = 1
             for element in enemy_team:
                 if element.health > 0:
                     name_of_alive += f"{enemy_team.index(element)}. {element.name}, "
-                    count += 1
-            choice = random.randint(1, count)
-
-            return choice
+            choice = random.randint(1, len(enemy_team) - 1)
+            all_choices.append(choice)
+            while choice in all_choices:
+                choice = random.randint(1, len(enemy_team) - 1)
+            field = Field(your_team[chosen_pythemon], enemy_team[choice])
+            drawn_field, dashes = field.draw_field()
+            print(drawn_field)
+            return choice, all_choices
             # field = Field(your_team[chosen_pythemon], enemy_team[choice])
             # drawn_field, dashes = field.draw_field()
             # print(drawn_field)
