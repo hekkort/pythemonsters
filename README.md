@@ -30,3 +30,6 @@ This project requires uv, install uv: curl -LsSf https://astral.sh/uv/install.sh
 - STAB
 - crits
 - physical/special split
+
+## Issues
+- Pokemon that don't have at least four moves with power >0 are not being added correctly
