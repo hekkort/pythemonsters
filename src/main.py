@@ -8,25 +8,8 @@ def main():
 
     chosen_pythemon = 0
     choice = 0
-    # your_team = []
-    # enemy_team = []
-
-    # for i in range(6):
-    #     your_team.append(pythemon.Pythemon(random.randint(1, 151)))
-    #     enemy_team.append(pythemon.Pythemon(random.randint(1, 151)))
-    
-    # print("My team:")
-    # for i in range(6):
-    #     print(your_team[i])
-    # print("Enemy team:")
-    # for i in range(6):
-    #     print(enemy_team[i])
 
     while True:
-
-        # you = input("Select your pokemon by dex entry: ")
-        # your_team[0] = pythemon.Pythemon(int(you))
-        # enemy_team[0] = pythemon.Pythemon(random.randint(1, 151))
         your_team = []
         enemy_team = []
 
@@ -145,30 +128,6 @@ def enemy_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], chosen_pyt
         print("+" + dashes + "-" + dashes + "+")
         return
     return choice
-            # field = Field(your_team[chosen_pythemon], enemy_team[choice])
-            # drawn_field, dashes = field.draw_field()
-            # print(drawn_field)
-            # action = input("What kind of attack do you want to use? Type just the number: ")
-
-            # drawn_field, dashes = field.draw_field()
-
-            # while not action.isdigit() or not (1 <= int(action) <= 4):
-            #     action = input("Choose a valid integer, one through four: ")
-            #     print("+" + dashes + "-" + dashes + "+")
-            # text_a, text_b = battle.calculate_battle_logic(your_team[chosen_pythemon], enemy_team[choice], action)
-            # drawn_field, dashes = field.draw_field()
-            # print(drawn_field)
-            # print(text_a)
-            # print(text_b)
-            # print("+" + dashes + "-" + dashes + "+")
-            # if your_team[chosen_pythemon].health <= 0:
-            #     you_dead(your_team, enemy_team, action, chosen_pythemon, choice, drawn_field, dashes)
-            # elif enemy_team[choice].health <= 0:
-            #     enemy_dead(your_team, enemy_team, action, chosen_pythemon, choice, drawn_field, dashes)
-            # print(drawn_field)
-            # print(text_a)
-            # print(text_b)
-            # print("+" + dashes + "-" + dashes + "+")
 
 if __name__ == "__main__":
     main()
