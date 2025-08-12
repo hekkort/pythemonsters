@@ -23,7 +23,6 @@ This project requires uv, install uv: curl -LsSf https://astral.sh/uv/install.sh
 - natures
 - maybe abilities
 
-
 ## Implemented
 - accurate move sets for all pokemon (just damaging moves for now)
 - parties of six for both you and the opponent
@@ -31,4 +30,3 @@ This project requires uv, install uv: curl -LsSf https://astral.sh/uv/install.sh
 - STAB
 - crits
 - physical/special split
-
