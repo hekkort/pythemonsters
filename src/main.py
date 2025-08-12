@@ -86,7 +86,6 @@ def you_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], choice, chos
     for y in your_team:
         if y.health > 0:
             valid_choices.append(your_team.index(y))
-            print(y.name)
     print(drawn_field)
     print(text_a)
     print(text_x)
@@ -98,6 +97,10 @@ def you_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], choice, chos
             name_of_alive += f"{your_team.index(element)}. {element.name}, "
     if valid_choices:
         chosen_pythemon = input("Choose a Pythemon: " + name_of_alive.strip()[:-1] + ": ")
+        print("+" + dashes + "-" + dashes + "+")
+        while not chosen_pythemon.isdigit() or int(chosen_pythemon) not in valid_choices:
+            chosen_pythemon = input(f"Choose a valid integer: {name_of_alive.strip()[:-1]}: ")
+            print("+" + dashes + "-" + dashes + "+")
         chosen_pythemon = int(chosen_pythemon)
         field = Field(your_team[chosen_pythemon], enemy_team[choice])
         drawn_field, dashes = field.draw_field()
@@ -119,7 +122,6 @@ def enemy_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], chosen_pyt
     for e in enemy_team:
         if e.health > 0:
             valid_choices.append(enemy_team.index(e))
-            print(e.name)
     print(drawn_field)
     print(text_a)
     print(text_x)
