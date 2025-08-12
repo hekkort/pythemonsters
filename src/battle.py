@@ -36,13 +36,15 @@ def calculate_effectiveness(attacker: Pythemon, target: Pythemon, action):
 
 def calculate_power(attacker: Pythemon, defender: Pythemon, action):
     action = int(action)
+    # print(f"DEBUG: calculate_power called for {attacker.name} using {attacker.moves[action - 1]['identifier']}")
     if attacker.moves[action - 1]["damage_class"] == "physical":
         base_damage = (((((2 * attacker.level) / 5) + 2) * attacker.get_move_power(action) * (attacker.stats["attack"] / defender.stats["defense"])) / 50) + 2
     else:
         base_damage = (((((2 * attacker.level) / 5) + 2) * attacker.get_move_power(action) * (attacker.stats["special-attack"] / defender.stats["special-defense"])) / 50) + 2
-
-    if attacker.moves[action - 1]["type_id"] in attacker.type:
-        base_damage *= 1.5
+    for a in attacker.type:
+        if attacker.moves[action - 1]["type_id"] == a["type_id"]:
+            base_damage *= 1.5
+            # print("STAB")
     base_damage *= calculate_effectiveness(attacker, defender, action)
     base_damage *= random.uniform(0.85, 1)
     crit = random.random() < 0.0625

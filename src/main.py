@@ -8,7 +8,6 @@ def main():
 
     chosen_pythemon = 0
     choice = 0
-    all_choices = []
     # your_team = []
     # enemy_team = []
 
@@ -68,9 +67,9 @@ def main():
             drawn_field, dashes = field.draw_field()
 
             if your_team[chosen_pythemon].health <= 0:
-                chosen_pythemon = you_dead(your_team, chosen_pythemon, drawn_field, dashes, text_a, text_x, text_b)
+                chosen_pythemon = you_dead(your_team, enemy_team, choice, chosen_pythemon, drawn_field, dashes, text_a, text_x, text_b)
             elif enemy_team[choice].health <= 0:
-                choice, all_choices = enemy_dead(your_team, enemy_team, chosen_pythemon, choice, drawn_field, dashes, text_a, text_x, text_b, all_choices)
+                choice = enemy_dead(your_team, enemy_team, chosen_pythemon, choice, drawn_field, dashes, text_a, text_x, text_b)
             else:
                 print(drawn_field)
                 print(text_a)
@@ -80,66 +79,70 @@ def main():
         break
 
 
-def you_dead(your_team: list[Pythemon], chosen_pythemon, drawn_field, dashes, text_a, text_x, text_b):
-        if your_team[chosen_pythemon].health <= 0:
-            print(drawn_field)
-            print(text_a)
-            print(text_x)
-            print(text_b)
-            print("+" + dashes + "-" + dashes + "+")
-            name_of_alive = ""
-            for element in your_team:
-                if element.health > 0:
-                    name_of_alive += f"{your_team.index(element)}. {element.name}, "
-
-            chosen_pythemon = input("Choose a Pythemon: " + name_of_alive.strip()[:-1] + ": ")
-
-            return int(chosen_pythemon)
-
-            # drawn_field, dashes = field.draw_field()
-            # print(drawn_field)
-            # action = input("What kind of attack do you want to use? Type just the number: ")
-
-            # drawn_field, dashes = field.draw_field()
-
-            # while not action.isdigit() or not (1 <= int(action) <= 4):
-            #     action = input("Choose a valid integer, one through four: ")
-            #     print("+" + dashes + "-" + dashes + "+")
-            # text_a, text_b = battle.calculate_battle_logic(your_team[int(chosen_pythemon)], enemy_team[choice], action)
-            # drawn_field, dashes = field.draw_field()
-            # print(drawn_field)
-            # print(text_a)
-            # print(text_b)
-            # print("+" + dashes + "-" + dashes + "+")
-            # if your_team[chosen_pythemon].health <= 0:
-            #     you_dead(your_team, enemy_team, action, chosen_pythemon, choice, drawn_field, dashes)
-            # elif enemy_team[choice].health <= 0:
-            #     enemy_dead(your_team, enemy_team, action, chosen_pythemon, choice, drawn_field, dashes)
-            # print(drawn_field)
-            # print(text_a)
-            # print(text_b)
-            # print("+" + dashes + "-" + dashes + "+")
+def you_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], choice, chosen_pythemon, drawn_field, dashes, text_a, text_x, text_b):
+    choice = int(choice)
+    chosen_pythemon = int(chosen_pythemon)
+    valid_choices = []
+    for y in your_team:
+        if y.health > 0:
+            valid_choices.append(your_team.index(y))
+            print(y.name)
+    print(drawn_field)
+    print(text_a)
+    print(text_x)
+    print(text_b)
+    print("+" + dashes + "-" + dashes + "+")
+    name_of_alive = ""
+    for element in your_team:
+        if element.health > 0:
+            name_of_alive += f"{your_team.index(element)}. {element.name}, "
+    if valid_choices:
+        chosen_pythemon = input("Choose a Pythemon: " + name_of_alive.strip()[:-1] + ": ")
+        chosen_pythemon = int(chosen_pythemon)
+        field = Field(your_team[chosen_pythemon], enemy_team[choice])
+        drawn_field, dashes = field.draw_field()
+        print(drawn_field)
+    else:
+        field = Field(your_team[chosen_pythemon], enemy_team[choice])
+        drawn_field, dashes = field.draw_field()
+        print(drawn_field)
+        print("The enemy won!")
+        print("+" + dashes + "-" + dashes + "+")
+        return
+    return chosen_pythemon
         
 
-def enemy_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], chosen_pythemon, choice, drawn_field, dashes, text_a, text_x, text_b, all_choices: list):
-        if enemy_team[choice].health <= 0:
-            print(drawn_field)
-            print(text_a)
-            print(text_x)
-            print(text_b)
-            print("+" + dashes + "-" + dashes + "+")
-            name_of_alive = ""
-            for element in enemy_team:
-                if element.health > 0:
-                    name_of_alive += f"{enemy_team.index(element)}. {element.name}, "
-            choice = random.randint(1, len(enemy_team) - 1)
-            all_choices.append(choice)
-            while choice in all_choices:
-                choice = random.randint(1, len(enemy_team) - 1)
-            field = Field(your_team[chosen_pythemon], enemy_team[choice])
-            drawn_field, dashes = field.draw_field()
-            print(drawn_field)
-            return choice, all_choices
+def enemy_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], chosen_pythemon, choice, drawn_field, dashes, text_a, text_x, text_b):
+    chosen_pythemon = int(chosen_pythemon)
+    choice = int(choice)
+    valid_choices = []
+    for e in enemy_team:
+        if e.health > 0:
+            valid_choices.append(enemy_team.index(e))
+            print(e.name)
+    print(drawn_field)
+    print(text_a)
+    print(text_x)
+    print(text_b)
+    print("+" + dashes + "-" + dashes + "+")
+    name_of_alive = ""
+    for element in enemy_team:
+        if element.health > 0:
+            name_of_alive += f"{enemy_team.index(element)}. {element.name}, "
+    print(f"Enemy still has: {name_of_alive.strip()[:-1]}")
+    if valid_choices:
+        choice = random.choice(valid_choices)
+        field = Field(your_team[chosen_pythemon], enemy_team[choice])
+        drawn_field, dashes = field.draw_field()
+        print(drawn_field)
+    else:
+        field = Field(your_team[chosen_pythemon], enemy_team[choice])
+        drawn_field, dashes = field.draw_field()
+        print(drawn_field)
+        print("You won!")
+        print("+" + dashes + "-" + dashes + "+")
+        return
+    return choice
             # field = Field(your_team[chosen_pythemon], enemy_team[choice])
             # drawn_field, dashes = field.draw_field()
             # print(drawn_field)
