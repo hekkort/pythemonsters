@@ -92,6 +92,10 @@ def you_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], choice, chos
         field = Field(your_team[chosen_pythemon], enemy_team[choice])
         drawn_field, dashes = field.draw_field()
         print(drawn_field)
+        name_of_alive = ""
+        for element in enemy_team:
+            if element.health > 0:
+                name_of_alive += f"{enemy_team.index(element)}. {element.name}, "
         print(f"The enemy won and had {name_of_alive.strip()[:-1]} left!")
         print("+" + dashes + "-" + dashes + "+")
         return
@@ -124,6 +128,10 @@ def enemy_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], chosen_pyt
         field = Field(your_team[chosen_pythemon], enemy_team[choice])
         drawn_field, dashes = field.draw_field()
         print(drawn_field)
+        name_of_alive = ""
+        for element in your_team:
+            if element.health > 0:
+                name_of_alive += f"{your_team.index(element)}. {element.name}, "
         print(f"You won and you had {name_of_alive.strip()[:-1]} left!")
         print("+" + dashes + "-" + dashes + "+")
         return
