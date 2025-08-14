@@ -13,9 +13,16 @@ def main():
         your_team = []
         enemy_team = []
 
+        valid_dex_entries = []
+
+        for i in range(150):
+            valid_dex_entries.append(i + 1)
+        
+        valid_dex_entries.remove(132)
+
         for i in range(6):
-            your_team.append(pythemon.Pythemon(random.randint(1, 151)))
-            enemy_team.append(pythemon.Pythemon(random.randint(1, 151)))
+            your_team.append(pythemon.Pythemon(random.choice(valid_dex_entries)))
+            enemy_team.append(pythemon.Pythemon(random.choice(valid_dex_entries)))
 
         your_team_string = "Your team: "
         
@@ -97,7 +104,7 @@ def you_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], choice, chos
             if enemy_team[i].health > 0:
                 name_of_alive += f"{i}. {enemy_team[i].name}, "
 
-        name_of_alive = name_of_alive.strip()[:-1] + f" and {len(enemy_team) - 1}. {enemy_team[len(enemy_team) - 1].name}"
+        name_of_alive = name_of_alive.strip()[:-1] + f" and {enemy_team[len(enemy_team) - 1].name}"
         print(f"The enemy won and had {name_of_alive.strip()} left!")
         print("+" + dashes + "-" + dashes + "+")
         return
@@ -133,9 +140,9 @@ def enemy_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], chosen_pyt
         name_of_alive = ""
         for i in range(len(your_team) - 1):
             if your_team[i].health > 0:
-                name_of_alive += f"{i}. {your_team[i].name}, "
+                name_of_alive += f"{your_team[i].name}, "
 
-        name_of_alive = name_of_alive.strip()[:-1] + f" and {len(your_team) - 1}. {your_team[len(your_team) - 1].name}"
+        name_of_alive = name_of_alive.strip()[:-1] + f" and {your_team[len(your_team) - 1].name}"
         print(f"You won and you had {name_of_alive.strip()} left!")
         print("+" + dashes + "-" + dashes + "+")
         return
