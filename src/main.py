@@ -102,7 +102,7 @@ def you_dead(your_team: list[Pythemon], enemy_team: list[Pythemon], choice, chos
         name_of_alive = ""
         for i in range(len(enemy_team) - 1):
             if enemy_team[i].health > 0:
-                name_of_alive += f"{i}. {enemy_team[i].name}, "
+                name_of_alive += f"{enemy_team[i].name}, "
 
         name_of_alive = name_of_alive.strip()[:-1] + f" and {enemy_team[len(enemy_team) - 1].name}"
         print(f"The enemy won and had {name_of_alive.strip()} left!")
