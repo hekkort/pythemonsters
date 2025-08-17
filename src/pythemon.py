@@ -29,10 +29,12 @@ class Pythemon():
         self.health = self._set_hp_at_level()
         self.stats = self._set_max_stats()
 
-        self._create_ascii_text_back(monsters)
-        self._create_ascii_text_front(monsters)
-        self.ascii_lines_back = make_ascii_of_monster_back(os.path.join(monsters, "text", "back", f"{self.dex_entry}.txt"))
-        self.ascii_lines_front = make_ascii_of_monster_front(os.path.join(monsters, "text", f"{self.dex_entry}.txt"))
+        # self._create_ascii_text_back(monsters)
+        # self._create_ascii_text_front(monsters)
+        self.ascii_lines_back = make_ascii_of_monster_back(self._get_ascii_string(os.path.join(monsters, "png", "back", f"{self.dex_entry}.png")))
+        self.ascii_lines_front = make_ascii_of_monster_front(self._get_ascii_string(os.path.join(monsters, "png", f"{self.dex_entry}.png")))
+        # self.ascii_lines_back = make_ascii_of_monster_back(os.path.join(monsters, "text", "back", f"{self.dex_entry}.txt"))
+        # self.ascii_lines_front = make_ascii_of_monster_front(os.path.join(monsters, "text", f"{self.dex_entry}.txt"))
         self.height_back = len(self.ascii_lines_back)
         self.height_front = len(self.ascii_lines_front)
 
@@ -157,7 +159,7 @@ class Pythemon():
         output = ascii_magic.from_image(path)
         ascii_colored = output.to_ascii(columns=60)
         ascii_grayscale = re.sub(r'\x1b\[[0-9;]*m', '', ascii_colored)
-        return ascii_grayscale
+        return ascii_colored
 
     def _create_ascii_text_back(self, filepath):
         back = os.path.join(filepath, "text", "back", f"{self.dex_entry}.txt")

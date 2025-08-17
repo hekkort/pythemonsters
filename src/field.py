@@ -67,12 +67,15 @@ class Field():
         if self.get_height_difference() <= 0:
             for i in range(3, self.enemy.height_front):
                 string += f"|{self.format_ascii_left(spaces, i - 3)} {self.format_ascii_right(spaces, i)}|\n"
+                print(string)
             return string
         elif self.get_height_difference() > 0:
             for i in range(0, self.you.height_back - 2):
                 string += f"|{self.format_ascii_left(spaces, i)} {self.format_ascii_right(spaces, i + self.get_height_difference())}|\n"
+                print(string)
             return string
         else:
+            print(string)
             return string
 
     def add_bottom_padding(self, spaces):
