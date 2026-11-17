@@ -14,8 +14,7 @@ This project requires uv, install uv: curl -LsSf https://astral.sh/uv/install.sh
 ### Run the game
 - uv venv
 - uv sync
-- venv (or source ./venv.sh)
-- main (or ./main.sh) to start the game
+- uv run src/main.py to run the game
 
 ## Roadmap
 - color and shiny logic
